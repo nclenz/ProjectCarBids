@@ -8,6 +8,7 @@
   z-index: 5;
   width: 500px;
   height: 200px;
+  border-radius: 5px;
 }
 
 .overlay {
