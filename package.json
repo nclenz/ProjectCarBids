@@ -1,0 +1,24 @@
+{
+  "name": "projectcarbids",
+  "version": "1.0.0",
+  "description": "Project 3 - MERN Stack Project",
+  "scripts": {
+    "build": "cd client && npm run build",
+    "start": "cd server && npm run start"
+  },
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nclenz/ProjectCarBids.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nclenz/ProjectCarBids/issues"
+  },
+  "homepage": "https://github.com/nclenz/ProjectCarBids#readme"
+}
