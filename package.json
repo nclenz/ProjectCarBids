@@ -2,8 +2,7 @@
   "name": "projectcarbids",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
+    "scripts": {
     "build": "cd client && npm run build",
     "start": "cd server && npm run start"
   },

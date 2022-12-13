@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Modal from "../modal";
+import Modal from "../Modal";
 import { useState } from "react";
 import Login from "./Login";
 import { FaCar, FaWhatsapp } from "react-icons/fa";
