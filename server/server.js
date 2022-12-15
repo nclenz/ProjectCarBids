@@ -33,6 +33,16 @@ app.use(cookieParser());
 app.use("/api/host", ownerController);
 app.use("/api/rent", renterController);
 
+app.set("trust proxy", 1); // trust first proxy
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    // cookie: { secure: true },
+  })
+);
+
 app.get("/api/", (req, res) => {
   res.json({ message: "connection success!" });
 });
