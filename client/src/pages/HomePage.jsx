@@ -4,6 +4,8 @@ const HomePage = () => {
   return (
     <>
       <Navbar />
+      <p>Featured Cars</p>
+      <p>Newly Listed Cars</p>
     </>
   );
 };
