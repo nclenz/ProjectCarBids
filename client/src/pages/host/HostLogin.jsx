@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const HostLogin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -31,10 +31,10 @@ const Login = () => {
       </form>
       <span>
         <p>NOT A MEMBER? Register for a free account</p>
-        <Link to="/signup">Sign Up</Link>
+        <Link to="/hostsignup">Sign Up</Link>
       </span>
     </>
   );
 };
 
-export default Login;
+export default HostLogin;

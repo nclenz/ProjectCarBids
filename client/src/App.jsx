@@ -1,15 +1,17 @@
 import HomePage from "./pages/HomePage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import SignUpPage from "./pages/SignUpPage";
-import ExplorePage from "./pages/ExplorePage";
+import HostSignUpPage from "./pages/host/HostSignUpPage";
+import ExplorePage from "./pages/renter/ExplorePage";
+import CreateListings from "./pages/host/CreateListing";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/hostsignup" element={<HostSignUpPage />} />
         <Route path="/explore" element={<ExplorePage />} />
+        <Route path="/createlistings" element={<CreateListings />} />
       </Routes>
     </BrowserRouter>
   );

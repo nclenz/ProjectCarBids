@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import Modal from "../Modal";
+import Modal from "../modal/Modal";
 import { useState } from "react";
-import Login from "./Login";
 import { FaCar, FaWhatsapp } from "react-icons/fa";
+import UserLogin from "../pages/renter/UserLogin";
 
 const Navbar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,6 +13,9 @@ const Navbar = () => {
         <FaCar />
       </Link>
       <div className="nav-items">
+        <Link to="/createlistings" className="nav-item">
+          Create Listing
+        </Link>
         <Link to="/explore" className="nav-item">
           Explore
         </Link>
@@ -21,10 +24,16 @@ const Navbar = () => {
           Contact Us
         </a>
         <h1 className="nav-item" onClick={() => setIsModalOpen(true)}>
-          Login
+          Rent a Car
         </h1>
         <Modal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          <Login />
+          <UserLogin />
+        </Modal>
+        <h1 className="nav-item" onClick={() => setIsModalOpen(true)}>
+          Be a Host
+        </h1>
+        <Modal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <UserLogin />
         </Modal>
       </div>
     </nav>
