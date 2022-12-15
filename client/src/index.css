@@ -37,3 +37,8 @@
 .nav-item:hover {
   background: tomato;
 }
+
+.loginModal {
+  display: flex;
+  justify-content: space-between;
+}
