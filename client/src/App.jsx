@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HostSignUpPage from "./pages/host/HostSignUpPage";
 import ExplorePage from "./pages/renter/ExplorePage";
 import CreateListings from "./pages/host/CreateListing";
+import UserSignUpPage from "./pages/renter/UserSignUpPage";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/hostsignup" element={<HostSignUpPage />} />
+        <Route path="/usersignup" element={<UserSignUpPage />} />
         <Route path="/explore" element={<ExplorePage />} />
         <Route path="/createlistings" element={<CreateListings />} />
       </Routes>

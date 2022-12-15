@@ -42,3 +42,9 @@
   display: flex;
   justify-content: space-between;
 }
+
+.user-form-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}

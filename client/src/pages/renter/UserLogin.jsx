@@ -31,7 +31,7 @@ const UserLogin = () => {
       </form>
       <span>
         <p>NOT A MEMBER? Register for a free account</p>
-        <Link to="/hostsignup">Sign Up</Link>
+        <Link to="/usersignup">Sign Up</Link>
       </span>
     </>
   );
