@@ -12,6 +12,7 @@ const UserSignUpPage = () => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [creditCardNum, setCreditCardNum] = useState("");
 
   const handleCreateListing = async (e) => {
     e.preventDefault();
@@ -49,44 +50,58 @@ const UserSignUpPage = () => {
       <Link to="/">Back to Home</Link>
       <div className="user-form-body">
         <form onSubmit={handleCreateListing}>
-          <label>
+          <label htmlFor="username">
             Username:
             <input
               type="text"
+              id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
           </label>
-          <label>
+          <label htmlFor="email">
             Email:
             <input
               type="email"
+              id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </label>
-          <label>
+          <label htmlFor="name">
             Name:
             <input
               type="text"
+              id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </label>
-          <label>
+          <label htmlFor="password">
             Password:
             <input
               type="password"
+              id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </label>
-          <label>
+          <label htmlFor="confirmPassword">
             Confirm Password:
             <input
-              type="password"
+              type="confirmPassword"
+              id="confirmPassword"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </label>
+          <label htmlFor="crediCardNum">
+            Credit Card Numbers:
+            <input
+              type="creditcardnum"
+              id="crediCardNum"
+              value={creditCardNum}
+              onChange={(e) => setCreditCardNum(e.target.value)}
             />
           </label>
           <button type="submit">Sign Up</button>
@@ -97,6 +112,7 @@ const UserSignUpPage = () => {
           selected={startDate}
           onChange={(date) => setStartDate(date)}
         />
+        <div className="message">{message ? <p>{message}</p> : null}</div>
       </div>
     </>
   );

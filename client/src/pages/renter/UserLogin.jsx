@@ -15,19 +15,23 @@ const UserLogin = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <label>Username: </label>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <br />
-        <label>Password: </label>
-        <input
-          type="password"
-          value={username}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <label>
+          Username:
+          <input
+            type="text"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+          />
+        </label>
+        <label>
+          Password:
+          <input
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </label>
+        <button type="submit">Login</button>
       </form>
       <span>
         <p>NOT A MEMBER? Register for a free account</p>

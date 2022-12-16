@@ -56,6 +56,7 @@ const HostSignUpPage = () => {
             onChange={(e) => setUsername(e.target.value)}
           />
         </label>
+        <br />
         <label>
           Email:
           <input
@@ -64,6 +65,7 @@ const HostSignUpPage = () => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
+        <br />
         <label>
           Name:
           <input
@@ -72,6 +74,7 @@ const HostSignUpPage = () => {
             onChange={(e) => setName(e.target.value)}
           />
         </label>
+        <br />
         <label>
           Password:
           <input
@@ -80,6 +83,7 @@ const HostSignUpPage = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
+        <br />
         <label>
           Confirm Password:
           <input
