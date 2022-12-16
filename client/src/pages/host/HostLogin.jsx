@@ -10,6 +10,7 @@ const HostLogin = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     const response = await fetch("/api/hostlogin", {
       method: "POST",
       headers: {
@@ -17,10 +18,11 @@ const HostLogin = () => {
       },
       body: JSON.stringify({ username, password }),
     });
+
     if (response.ok) {
-      fetch("/api/host")
-        .then((request) => request.json())
-        .then((data) => setMsg(data));
+      fetch("/accounts");
+      // .then((request) => request.json())
+      // .then((data) => setMsg(data));
       navigate("/hostdashboard");
       setLoggedIn(true);
     }
