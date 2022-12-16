@@ -1,7 +1,8 @@
-const CreateListings = () => {
+const CreateListing = () => {
   return (
     <>
-      <label for="select">Choose your option</label>
+      <h1>Create listing</h1>
+      <label for="select">Brand & Model</label>
       <select id="select">
         <optgroup label="Honda">
           <option value="Honda_Civic">Civic</option>
@@ -12,8 +13,12 @@ const CreateListings = () => {
           <option value="category-two__second-option">Second option</option>
         </optgroup>
       </select>
+
+      <select>
+        <option value=""></option>
+      </select>
     </>
   );
 };
 
-export default CreateListings;
+export default CreateListing;

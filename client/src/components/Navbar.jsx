@@ -3,18 +3,23 @@ import Modal from "../modal/Modal";
 import { useState } from "react";
 import { FaCar, FaWhatsapp } from "react-icons/fa";
 import UserLogin from "../pages/renter/UserLogin";
+import HostLogin from "../pages/host/HostLogin";
 
 const Navbar = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log(isModalOpen);
+  // const [isOpen, setIsOpen] = useState(false);
+  const [isUserModalOpen, setIsUserModalOpen] = useState(false);
+  const [isHostModalOpen, setIsHostModalOpen] = useState(false);
+
+  console.log("User", isUserModalOpen);
+  console.log("HOST", isHostModalOpen);
   return (
     <nav className="navbar">
       <Link to="/" className="navbar-logo">
         <FaCar />
       </Link>
       <div className="nav-items">
-        <Link to="/createlistings" className="nav-item">
-          Create Listing
+        <Link to="/manage" className="nav-item">
+          Manage Listing
         </Link>
         <Link to="/explore" className="nav-item">
           Explore
@@ -23,17 +28,27 @@ const Navbar = () => {
           <FaWhatsapp />
           Contact Us
         </a>
-        <h1 className="nav-item" onClick={() => setIsModalOpen(true)}>
-          Rent a Car
+
+        <h1 className="nav-item" onClick={() => setIsUserModalOpen(true)}>
+          Renter
         </h1>
-        <Modal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+
+        <h1 className="nav-item" onClick={() => setIsHostModalOpen(true)}>
+          Host
+        </h1>
+
+        <Modal
+          isOpen={isUserModalOpen}
+          onClose={() => setIsUserModalOpen(false)}
+        >
           <UserLogin />
         </Modal>
-        <h1 className="nav-item" onClick={() => setIsModalOpen(true)}>
-          Be a Host
-        </h1>
-        <Modal isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          <UserLogin />
+
+        <Modal
+          isOpen={isHostModalOpen}
+          onClose={() => setIsHostModalOpen(false)}
+        >
+          <HostLogin />
         </Modal>
       </div>
     </nav>

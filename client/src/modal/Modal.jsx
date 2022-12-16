@@ -1,10 +1,11 @@
 import { createPortal } from "react-dom";
 import "./modal.css";
 
-const Modal = ({ isModalOpen, children, onClose }) => {
-  if (!isModalOpen) {
+const Modal = ({ isOpen, children, onClose }) => {
+  if (!isOpen) {
     return null;
   }
+
   return createPortal(
     <div>
       <div className="overlay"></div>

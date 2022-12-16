@@ -1,16 +1,30 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const HostLogin = () => {
+  const [LoggedIn, setLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("submit");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const response = await fetch("/api/hostlogin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
+    if (response.ok) {
+      fetch("/api/host")
+        .then((request) => request.json())
+        .then((data) => setMsg(data));
+      navigate("/hostdashboard");
+      setLoggedIn(true);
+    }
   };
-  console.log(username);
-  console.log(password);
 
   return (
     <>
@@ -25,9 +39,10 @@ const HostLogin = () => {
         <label>Password: </label>
         <input
           type="password"
-          value={username}
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <button type="submit">Login</button>
       </form>
       <span>
         <p>NOT A MEMBER? Register for a free account</p>
