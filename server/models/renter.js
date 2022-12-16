@@ -7,7 +7,7 @@ const renterSchema = new mongoose.Schema({
   email: { type: String, required: true },
   creditcard: { type: Number, required: true, minLength: 16, maxLength: 16 },
   cvc: { type: Number, required: true, minLength: 3, maxLength: 3 },
-  reservation: [{ type: mongoose.Schema.Types.ObjectId, ref: "Listings" }],
+  reservation: [{ type: mongoose.Schema.Types.ObjectId, ref: "reservation" }],
 });
 
 const Renter = mongoose.model("renter", renterSchema);

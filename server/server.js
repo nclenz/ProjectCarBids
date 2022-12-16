@@ -9,9 +9,12 @@ const session = require("express-session");
 const db = mongoose.connection;
 const ownerController = require("../server/controllers/owner.js");
 const renterController = require("../server/controllers/renter.js");
+const reservationController = require("../server/controllers/reservation.js");
+const listingController = require("../server/controllers/listing.js");
 const owner = require("../server/controllers/owner.js");
 const Owner = require("./models/owner.js");
 const Renter = require("./models/renter.js");
+const reservation = require("./controllers/reservation.js");
 
 const app = express();
 const PORT = process.env.PORT ?? 7000;
@@ -39,8 +42,6 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.static("../client/dist"));
 app.use(cookieParser());
-app.use("/api/host", ownerController);
-app.use("/api/rent", renterController);
 
 // sessions
 app.set("trust proxy", 1); // trust first proxy
@@ -51,6 +52,11 @@ app.use(
     saveUninitialized: true,
   })
 );
+// routes
+app.use("/api/host", ownerController);
+app.use("/api/rent", renterController);
+app.use("/api/reservation", reservationController);
+app.use("/api/listing", listingController);
 
 // middleware to test if user is authenticated host
 function isAuthenticatedHost(req, res, next) {
