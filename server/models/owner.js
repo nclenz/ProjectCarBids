@@ -5,7 +5,7 @@ const ownerSchema = new mongoose.Schema({
   password: { type: String, required: true, minLength: 8 },
   name: { type: String, required: true },
   email: { type: String, required: true },
-  listing: [{ type: mongoose.Schema.Types.ObjectId, ref: "Listings" }],
+  listing: [{ type: mongoose.Schema.Types.ObjectId, ref: "listing" }],
 });
 
 const Owner = mongoose.model("owner", ownerSchema);

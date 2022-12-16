@@ -14,8 +14,8 @@ const listingSchema = new mongoose.Schema(
     availability: { type: Boolean, required: true },
     image: { type: String, required: true },
     location: { type: String, required: true },
-    reservation: [{ type: mongoose.Schema.Types.ObjectId, ref: "Reservation" }],
-    owner: [{ type: mongoose.Schema.Types.ObjectId, ref: "Owner" }],
+    reservation: [{ type: mongoose.Schema.Types.ObjectId, ref: "reservation" }],
+    owner: [{ type: mongoose.Schema.Types.ObjectId, ref: "owner" }],
   },
   { timestamps: true }
 );
