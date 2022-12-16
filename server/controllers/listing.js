@@ -66,6 +66,19 @@ listing.delete("/remove/:id", [isAuthenticatedUser], async (req, res) => {
   }
 });
 
+listing.put("/edit/:id", async (req, res) => {
+  const { id } = req.params;
+  if (id.match(/^[0-9a-fA-F]{24}$/)) {
+    const data = req.body;
+    const updatedListing = await Listing.findByIdAndUpdate(id, data, {
+      new: true,
+    });
+    return res.json(updatedListing);
+  } else {
+    return res.status(400).json({ error: "unable to update" });
+  }
+});
+
 listing.get("/all", [isAuthenticatedUser], async (req, res) => {
   try {
     const foundListings = await Listing.find()
