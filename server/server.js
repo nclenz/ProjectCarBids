@@ -71,7 +71,7 @@ function isAuthenticatedRenter(req, res, next) {
 }
 
 // host login
-app.post("/hostlogin", async (req, res) => {
+app.post("/api/hostlogin", async (req, res) => {
   const { username, password } = req.body;
   const user = await Owner.findOne({ username }).exec();
 
@@ -89,7 +89,7 @@ app.post("/hostlogin", async (req, res) => {
 });
 
 // user logout
-app.post("/renterlogin", async (req, res) => {
+app.post("/api/renterlogin", async (req, res) => {
   const { username, password } = req.body;
   const user = await Renter.findOne({ username }).exec();
 
