@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -12,7 +12,9 @@ const UserSignUpPage = () => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [creditCardNum, setCreditCardNum] = useState("");
+  const [creditCard, setCreditCard] = useState("");
+  const [cvc, setCvc] = useState("");
+  const navigate = useNavigate();
 
   const handleCreateListing = async (e) => {
     e.preventDefault();
@@ -27,6 +29,8 @@ const UserSignUpPage = () => {
           name,
           password,
           email,
+          creditCard,
+          cvc,
           // mobileNumber,
         }),
       });
@@ -39,7 +43,10 @@ const UserSignUpPage = () => {
       setConfirmPassword("");
       setEmail("");
       setMobileNumber("");
+      setCreditCard("");
+      setCvc("");
       setMessage("User created successfully");
+      navigate("/explore");
     } catch (error) {
       setMessage("something went wrong");
     }
@@ -95,13 +102,23 @@ const UserSignUpPage = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </label>
-          <label htmlFor="crediCardNum">
+          <label htmlFor="crediCard">
             Credit Card Numbers:
             <input
-              type="creditcardnum"
-              id="crediCardNum"
-              value={creditCardNum}
-              onChange={(e) => setCreditCardNum(e.target.value)}
+              type="creditcard"
+              id="crediCard"
+              value={creditCard}
+              onChange={(e) => setCreditCard(e.target.value)}
+            />
+          </label>
+
+          <label htmlFor="cvc">
+            CVC:
+            <input
+              type="cvc"
+              id="cvc"
+              value={cvc}
+              onChange={(e) => setCvc(e.target.value)}
             />
           </label>
           <button type="submit">Sign Up</button>

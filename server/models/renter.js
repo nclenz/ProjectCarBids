@@ -5,7 +5,7 @@ const renterSchema = new mongoose.Schema({
   password: { type: String, required: true, minLength: 8 },
   name: { type: String, required: true },
   email: { type: String, required: true },
-  creditcard: { type: Number, required: true, minLength: 16, maxLength: 16 },
+  creditCard: { type: Number, required: true, minLength: 16, maxLength: 16 },
   cvc: { type: Number, required: true, minLength: 3, maxLength: 3 },
   reservation: [{ type: mongoose.Schema.Types.ObjectId, ref: "reservation" }],
 });

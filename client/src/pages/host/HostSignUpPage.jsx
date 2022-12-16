@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -11,9 +11,10 @@ const HostSignUpPage = () => {
   const [email, setEmail] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [displayMessage, setDisplayMessage] = useState("");
+  const navigate = useNavigate();
 
-  const handleCreateListing = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     try {
       let Response = await fetch("/api/host/signup", {
@@ -38,16 +39,17 @@ const HostSignUpPage = () => {
       setConfirmPassword("");
       setEmail("");
       setMobileNumber("");
-      setMessage("User created successfully");
+      setDisplayMessage("User created successfully");
+      navigate("/hostdashboard");
     } catch (error) {
-      setMessage("something went wrong");
+      setDisplayMessage("something went wrong");
     }
   };
   return (
     <>
       <h1>REGISTER AS HOST</h1>
       <Link to="/">Back to Home</Link>
-      <form onSubmit={handleCreateListing}>
+      <form onSubmit={handleSignUp}>
         <label>
           Username:
           <input
@@ -93,6 +95,7 @@ const HostSignUpPage = () => {
           />
         </label>
         <button type="submit">Sign Up</button>
+        <p>{displayMessage}</p>
       </form>
     </>
   );

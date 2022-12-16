@@ -5,9 +5,23 @@ const UserLogin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("submit");
+    const response = await fetch("/api/renterlogin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
+
+    if (response.ok) {
+      fetch("/accounts");
+      // .then((request) => request.json())
+      // .then((data) => setMsg(data));
+      navigate("/explore");
+      setLoggedIn(true);
+    }
   };
   console.log(username);
   console.log(password);

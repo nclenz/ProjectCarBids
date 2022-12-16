@@ -10,7 +10,7 @@ renter.get("/seed", async (req, res) => {
     password: bcrypt.hashSync("12345678", 10),
     name: "Jun Jie",
     email: "jj@hotmail.com",
-    creditcard: 4256293384759102,
+    creditCard: 4256293384759102,
     cvc: 321,
     reservation: [uniqueId],
   };
