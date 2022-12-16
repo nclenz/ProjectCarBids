@@ -18,7 +18,15 @@ reservation.get("/seed", async (req, res) => {
   }
 });
 
-reservation.post("/reserve", async (req, res) => {
+function isAuthenticatedUser(req, res, next) {
+  if (req.session.role) {
+    next();
+  } else {
+    return res.status(401).json({ msg: "Unauthorized User" });
+  }
+}
+
+reservation.post("/reserve", [isAuthenticatedUser], async (req, res) => {
   try {
     const createdReservation = await Reservation.create(req.body);
     res.status(200).send(createdReservation);
@@ -27,7 +35,7 @@ reservation.post("/reserve", async (req, res) => {
   }
 });
 
-reservation.get("/:id", async (req, res) => {
+reservation.get("/retrieve/:id", [isAuthenticatedUser], async (req, res) => {
   const { id } = req.params;
   try {
     const reservation = await Reservation.findById(id);
@@ -37,7 +45,17 @@ reservation.get("/:id", async (req, res) => {
   }
 });
 
-reservation.get("/all", async (req, res) => {
+reservation.delete("/remove/:id", [isAuthenticatedUser], async (req, res) => {
+  const { id } = req.params;
+  try {
+    const reservation = await Reservation.findByIdAndRemove(id);
+    res.status(200).json(reservation);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+reservation.get("/all", [isAuthenticatedUser], async (req, res) => {
   try {
     const foundReservation = await Reservation.find().exec();
     res.status(200).json(foundReservation);

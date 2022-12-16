@@ -29,7 +29,15 @@ listing.get("/seed", async (req, res) => {
   }
 });
 
-listing.post("/create", async (req, res) => {
+function isAuthenticatedUser(req, res, next) {
+  if (req.session.role) {
+    next();
+  } else {
+    return res.status(401).json({ msg: "Unauthorized User" });
+  }
+}
+
+listing.post("/create", [isAuthenticatedUser], async (req, res) => {
   try {
     const createdListing = await Listing.create(req.body);
     res.status(200).send(createdListing);
@@ -38,7 +46,7 @@ listing.post("/create", async (req, res) => {
   }
 });
 
-listing.get("/retrieve/:id", async (req, res) => {
+listing.get("/retrieve/:id", [isAuthenticatedUser], async (req, res) => {
   const { id } = req.params;
   try {
     const listing = await Listing.findById(id);
@@ -48,7 +56,7 @@ listing.get("/retrieve/:id", async (req, res) => {
   }
 });
 
-listing.delete("/remove/:id", async (req, res) => {
+listing.delete("/remove/:id", [isAuthenticatedUser], async (req, res) => {
   const { id } = req.params;
   try {
     const listing = await Listing.findByIdAndRemove(id);
@@ -58,7 +66,7 @@ listing.delete("/remove/:id", async (req, res) => {
   }
 });
 
-listing.get("/all", async (req, res) => {
+listing.get("/all", [isAuthenticatedUser], async (req, res) => {
   try {
     const foundListings = await Listing.find()
       .populate("reservation")

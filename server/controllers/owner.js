@@ -13,7 +13,13 @@ owner.post("/signup", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-
+function isAuthenticatedHost(req, res, next) {
+  if (req.session.role === "host") {
+    next();
+  } else {
+    return res.status(401).json({ msg: "Unauthorized User" });
+  }
+}
 owner.get("/seed", async (req, res) => {
   const owner = {
     username: "admin",
@@ -30,7 +36,7 @@ owner.get("/seed", async (req, res) => {
   }
 });
 
-owner.get("/accounts", async (req, res) => {
+owner.get("/accounts", [isAuthenticatedHost], async (req, res) => {
   try {
     const foundOwners = await Owner.find().exec();
     res.status(200).json(foundOwners);

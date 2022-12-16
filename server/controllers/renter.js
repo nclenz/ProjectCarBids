@@ -23,6 +23,15 @@ renter.get("/seed", async (req, res) => {
   }
 });
 
+// middleware to test if user is authenticated user
+function isAuthenticatedRenter(req, res, next) {
+  if (req.session.role == "renter") {
+    next();
+  } else {
+    return res.status(401).json({ msg: "Unauthorized User" });
+  }
+}
+
 renter.post("/signup", async (req, res) => {
   try {
     const data = req.body;
@@ -34,7 +43,7 @@ renter.post("/signup", async (req, res) => {
   }
 });
 
-renter.get("/accounts", async (req, res) => {
+renter.get("/accounts", [isAuthenticatedRenter], async (req, res) => {
   try {
     const foundRenters = await Renter.find().populate("reservation").exec();
     res.status(200).json(foundRenters);
@@ -43,7 +52,7 @@ renter.get("/accounts", async (req, res) => {
   }
 });
 
-renter.get("/:id", async (req, res) => {
+renter.get("/:id", [isAuthenticatedRenter], async (req, res) => {
   const { id } = req.params;
   try {
     const user = await Renter.findById(id);

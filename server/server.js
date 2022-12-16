@@ -58,24 +58,6 @@ app.use("/api/rent", renterController);
 app.use("/api/reservation", reservationController);
 app.use("/api/listing", listingController);
 
-// middleware to test if user is authenticated host
-function isAuthenticatedHost(req, res, next) {
-  if (req.session.user && req.session.role === "host") {
-    next();
-  } else {
-    return res.status(401).json({ msg: "Unauthorized User" });
-  }
-}
-
-// middleware to test if user is authenticated user
-function isAuthenticatedRenter(req, res, next) {
-  if (req.session.user && req.session.role == "renter") {
-    next();
-  } else {
-    return res.status(401).json({ msg: "Unauthorized User" });
-  }
-}
-
 // host login
 app.post("/api/hostlogin", async (req, res) => {
   const { username, password } = req.body;
@@ -89,7 +71,6 @@ app.post("/api/hostlogin", async (req, res) => {
     return res.status(401).json({ msg: "Invalid password" });
   }
 
-  req.session.userid = username;
   req.session.role = "host";
   return res.json({ msg: "user logged in" });
 });
