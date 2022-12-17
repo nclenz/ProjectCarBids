@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/nclenz/ProjectCarBids#readme",
   "dependencies": {
+    "formik": "^2.2.9",
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.4.5"
   }

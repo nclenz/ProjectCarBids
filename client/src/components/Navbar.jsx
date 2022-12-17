@@ -10,8 +10,8 @@ const Navbar = () => {
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const [isHostModalOpen, setIsHostModalOpen] = useState(false);
 
-  console.log("User", isUserModalOpen);
-  console.log("HOST", isHostModalOpen);
+  // console.log("User", isUserModalOpen);
+  // console.log("HOST", isHostModalOpen);
   return (
     <nav className="navbar">
       <Link to="/" className="navbar-logo">
