@@ -81,3 +81,42 @@
   background-color: #0069d9;
   border-color: #0062cc;
 }
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 16px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 0;
+  padding-bottom: 75%;
+  background-size: cover;
+  background-position: center;
+}
+
+.card-content {
+  padding: 16px;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.card-subtitle {
+  margin: 8px 0 0;
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.54);
+}

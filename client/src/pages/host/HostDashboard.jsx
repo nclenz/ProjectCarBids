@@ -23,34 +23,60 @@ const HostDashboard = () => {
     fetchData();
   }, []);
 
-  // async function fetchListings() {
-  //   const response = await fetch("/all");
-  //   const data = await response.json();
-  //   console.log(data);
-  //   setListings(data);
-  // }
-  // fetchListings().then(console.log(listings));
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`/api/listing/remove/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        setListings(listings.filter((listing) => listing._id !== id));
+      }
+    } catch (error) {
+      console.log({ error });
+    }
+  };
 
   return (
     <>
       <h1>HostDashboard</h1>
       <button onClick={() => navigate("/create")}>Add New Listing</button>
-      <div>
-        {listings &&
-          listings.map((listing) => (
-            <div key={listing._id}>
-              Brand: {listing.brand}
-              Model: {listing.model}
-              Transmission: {listing.type}
-              Fuel Type: {listing.fuel}
-              {listing.availability && (
-                <div>Availability: {listing.availability}</div>
-              )}
-              {listing.image && <div>image: {listing.image}</div>}
-              location: {listing.location}
+      {listings && (
+        <div className="card-container">
+          {listings.map((listing) => (
+            <div key={listing._id} className="card">
+              <div
+                className="card-image"
+                style={{
+                  backgroundImage: `url(${listing.image})`,
+                }}
+              />
+              <div className="card-content">
+                <h3 className="card-title">{listing.price}</h3>
+                <h3 className="card-title">{listing.brand}</h3>
+                <h4 className="card-subtitle">{listing.model}</h4>
+                <div>Transmission: {listing.type}</div>
+                <div>Fuel Type: {listing.fuel}</div>
+                {listing.availability && (
+                  <div>Availability: {listing.availability}</div>
+                )}
+                <div>location: {listing.location}</div>
+              </div>
+              <div className="card-buttons">
+                <button
+                  className="delete-button"
+                  onClick={() => handleDelete(listing._id)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
-      </div>
+        </div>
+      )}
+
       <Link to="/">Back</Link>
     </>
   );
