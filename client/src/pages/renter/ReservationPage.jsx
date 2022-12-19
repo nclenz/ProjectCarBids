@@ -1,28 +1,19 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const ReservationPage = () => {
-  const [listing, setListing] = useState(null);
-  const location = useLocation();
-
-  // Parse the id from the query parameter in the URL
-  const params = new URLSearchParams(location.search);
-  const id = params.get("id");
+  const [listing, setListing] = useState("");
+  let { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await fetch(`/api/reservation/retrieve/${id}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        const result = await response.json();
-        setListing(result);
-      } catch (error) {
-        console.log({ msg: "error" });
-      }
+      const response = await fetch("/api/listing/all");
+      const data = await response.json();
+      const selectedListing = data.find(function (element) {
+        return element._id === id;
+      });
+      console.log(selectedListing);
+      setListing(selectedListing);
     };
     fetchData();
   }, [id]);

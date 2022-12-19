@@ -19,15 +19,11 @@ const ExplorePage = () => {
         const result = await response.json();
         setListings(result);
       } catch (error) {
-        console.log({ error });
+        console.log({ msg: "error" });
       }
     };
     fetchData();
   }, []);
-
-  const handleClick = () => {
-    navigate("/reservation/retrieve/");
-  };
 
   return (
     <>
@@ -35,10 +31,11 @@ const ExplorePage = () => {
       {listings && (
         <div className="card-container">
           {listings.map((listing) => {
-            // const handleClick = () => {
-            //   const id = listing._id;
-            //   navigate(`/reservation${_id}`);
-            // };
+            const handleClick = () => {
+              const id = listing._id;
+              console.log(id);
+              navigate(`/api/reservation/retrieve/${id}`);
+            };
 
             return (
               <div key={listing._id} className="card">
@@ -50,7 +47,7 @@ const ExplorePage = () => {
                 />
                 <div className="card-content">
                   <h3 className="card-title" ref={titleRef}>
-                    {listing.price}
+                    ${listing.price}
                   </h3>
                   <h3 className="card-title" ref={priceRef}>
                     {listing.brand}

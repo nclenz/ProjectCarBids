@@ -10,6 +10,7 @@ import { createContext, useState } from "react";
 import ReservationPage from "./pages/renter/ReservationPage";
 import UserLogin from "./pages/renter/UserLogin";
 import HostLogin from "./pages/host/HostLogin";
+import EditPage from "./pages/host/EditPage";
 
 export const LoginContext = createContext();
 
@@ -26,9 +27,13 @@ function App() {
           <Route path="/manage" element={<ManageListing />} />
           <Route path="/create" element={<CreateListing />} />
           <Route path="/hostdashboard" element={<HostDashboard />} />
-          <Route path="/reservation" element={<ReservationPage />} />
+          <Route
+            path="/api/reservation/retrieve/:id"
+            element={<ReservationPage />}
+          />
           <Route path="/userlogin" element={<UserLogin />} />
           <Route path="/hostlogin" element={<HostLogin />} />
+          <Route path="/edit/:id" element={<EditPage />} />
         </Routes>
       </BrowserRouter>
     </LoginContext.Provider>
