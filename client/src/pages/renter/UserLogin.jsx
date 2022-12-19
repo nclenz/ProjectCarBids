@@ -1,15 +1,15 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { LoginContext } from "../../App";
 
-const UserLogin = () => {
+const UserLogin = ({ setIsUserModalOpen, setLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [msg, setMsg] = useState("");
   const navigate = useNavigate();
-  const { loggedIn, setLoggedIn } = useContext(LoginContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const response = await fetch("/api/renterlogin", {
       method: "POST",
       headers: {
@@ -22,15 +22,13 @@ const UserLogin = () => {
       fetch("/accounts");
       // .then((request) => request.json())
       // .then((data) => setMsg(data));
+      setLogin("user");
       navigate("/explore");
-      setLoggedIn(true);
+      setIsUserModalOpen(false);
     } else {
-      setLoggedIn(false);
-      navigate("/");
+      setMsg("Login Fail");
     }
   };
-  console.log(username);
-  console.log(password);
 
   return (
     <>
@@ -57,6 +55,7 @@ const UserLogin = () => {
         <p>NOT A MEMBER? Register for a free account</p>
         <Link to="/usersignup">Sign Up</Link>
       </span>
+      <p>{msg}</p>
     </>
   );
 };

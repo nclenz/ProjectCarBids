@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const HostLogin = () => {
-  const [LoggedIn, setLoggedIn] = useState(false);
+const HostLogin = ({ setIsHostModalOpen, setLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [msg, setMsg] = useState("");
 
   const navigate = useNavigate();
 
@@ -23,8 +23,11 @@ const HostLogin = () => {
       fetch("/accounts");
       // .then((request) => request.json())
       // .then((data) => setMsg(data));
+      setLogin("host");
       navigate("/hostdashboard");
-      setLoggedIn(true);
+      setIsHostModalOpen(false);
+    } else {
+      setMsg("Login Fail");
     }
   };
 
@@ -50,6 +53,7 @@ const HostLogin = () => {
         <p>NOT A MEMBER? Register for a free account</p>
         <Link to="/hostsignup">Sign Up</Link>
       </span>
+      <p>{msg}</p>
     </>
   );
 };

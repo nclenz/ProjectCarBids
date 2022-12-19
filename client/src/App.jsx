@@ -8,17 +8,23 @@ import CreateListing from "./pages/host/CreateListing";
 import HostDashboard from "./pages/host/HostDashboard";
 import { createContext, useState } from "react";
 import ReservationPage from "./pages/renter/ReservationPage";
+import EditPage from "./pages/host/EditPage";
+import Navbar from "./components/Navbar/Navbar";
 import UserLogin from "./pages/renter/UserLogin";
 import HostLogin from "./pages/host/HostLogin";
-import EditPage from "./pages/host/EditPage";
 
 export const LoginContext = createContext();
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [login, setLogin] = useState("");
+
+  console.log(login);
+
   return (
-    <LoginContext.Provider value={{ loggedIn, setLoggedIn }}>
+    <>
+
       <BrowserRouter>
+        <Navbar setLogin={setLogin} />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/hostsignup" element={<HostSignUpPage />} />
@@ -31,12 +37,10 @@ function App() {
             path="/api/reservation/retrieve/:id"
             element={<ReservationPage />}
           />
-          <Route path="/userlogin" element={<UserLogin />} />
-          <Route path="/hostlogin" element={<HostLogin />} />
           <Route path="/edit/:id" element={<EditPage />} />
         </Routes>
       </BrowserRouter>
-    </LoginContext.Provider>
+    </>
   );
 }
 

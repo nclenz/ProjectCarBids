@@ -4,16 +4,12 @@ import { useState, useContext } from "react";
 import { FaCar, FaWhatsapp } from "react-icons/fa";
 import UserLogin from "../../pages/renter/UserLogin";
 import HostLogin from "../../pages/host/HostLogin";
-import { LoginContext } from "../../App";
 
-const Navbar = () => {
+const Navbar = ({ setLogin }) => {
   // const [isOpen, setIsOpen] = useState(false);
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const [isHostModalOpen, setIsHostModalOpen] = useState(false);
-  // const [loggedIn, setLoggedIn] = useContext(LoginContext);
 
-  // console.log("User", isUserModalOpen);
-  // console.log("HOST", isHostModalOpen);
   return (
     <nav className="navbar">
       <Link to="/" className="navbar-logo">
@@ -43,14 +39,20 @@ const Navbar = () => {
           isOpen={isUserModalOpen}
           onClose={() => setIsUserModalOpen(false)}
         >
-          <UserLogin />
+          <UserLogin
+            setIsUserModalOpen={setIsUserModalOpen}
+            setLogin={setLogin}
+          />
         </Modal>
 
         <Modal
           isOpen={isHostModalOpen}
           onClose={() => setIsHostModalOpen(false)}
         >
-          <HostLogin />
+          <HostLogin
+            setIsHostModalOpen={setIsHostModalOpen}
+            setLogin={setLogin}
+          />
         </Modal>
       </div>
     </nav>
