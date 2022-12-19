@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom";
-import Modal from "../modal/Modal";
-import { useState } from "react";
+import Modal from "../../modal/Modal";
+import { useState, useContext } from "react";
 import { FaCar, FaWhatsapp } from "react-icons/fa";
-import UserLogin from "../pages/renter/UserLogin";
-import HostLogin from "../pages/host/HostLogin";
+import UserLogin from "../../pages/renter/UserLogin";
+import HostLogin from "../../pages/host/HostLogin";
+import { LoginContext } from "../../App";
 
 const Navbar = () => {
   // const [isOpen, setIsOpen] = useState(false);
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const [isHostModalOpen, setIsHostModalOpen] = useState(false);
+  // const [loggedIn, setLoggedIn] = useContext(LoginContext);
 
   // console.log("User", isUserModalOpen);
   // console.log("HOST", isHostModalOpen);

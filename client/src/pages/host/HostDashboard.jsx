@@ -71,6 +71,12 @@ const HostDashboard = () => {
                 >
                   Delete
                 </button>
+                <button
+                  className="edit-button"
+                  onClick={() => navigate(`/edit/${listing._id}`)}
+                >
+                  Edit
+                </button>
               </div>
             </div>
           ))}

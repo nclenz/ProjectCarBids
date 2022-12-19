@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import brands from "../../brands/brands.json";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/Navbar/Navbar";
 // import { Formik, Form } from "formik";
 
 const CreateListing = () => {

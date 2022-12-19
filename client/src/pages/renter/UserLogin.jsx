@@ -1,9 +1,12 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { LoginContext } from "../../App";
 
 const UserLogin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { loggedIn, setLoggedIn } = useContext(LoginContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,6 +24,9 @@ const UserLogin = () => {
       // .then((data) => setMsg(data));
       navigate("/explore");
       setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+      navigate("/");
     }
   };
   console.log(username);

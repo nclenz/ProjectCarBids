@@ -24,6 +24,7 @@ function isAuthenticatedUser(req, res, next) {
   } else {
     return res.status(401).json({ msg: "Unauthorized User" });
   }
+  
 }
 
 reservation.post("/reserve", [isAuthenticatedUser], async (req, res) => {
