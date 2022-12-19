@@ -5,6 +5,7 @@ const ownerSchema = new mongoose.Schema({
   password: { type: String, required: true, minLength: 8 },
   name: { type: String, required: true },
   email: { type: String, required: true },
+  mobile: { type: Number, required: true, minLength: 8, maxLength: 8 },
   listing: [{ type: mongoose.Schema.Types.ObjectId, ref: "listing" }],
 });
 

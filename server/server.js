@@ -72,7 +72,7 @@ app.post("/api/hostlogin", async (req, res) => {
   }
 
   req.session.role = "host";
-  return res.json({ msg: "user logged in" });
+  return res.json(user);
 });
 
 // user logout

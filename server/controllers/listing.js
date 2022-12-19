@@ -1,11 +1,13 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const listing = express.Router();
+const { body, validationResult } = require("express-validator");
+
 const Listing = require("../models/listing.js");
 
 listing.get("/seed", async (req, res) => {
-  const uniqueReservationId = "639af3156fe6cd45ac77f674";
-  const uniqueOwnerId = "639ad556232ea4bba24aa0e1";
+  const uniqueReservationId = "639fd3590572c460f6b2aed6";
+  const uniqueOwnerId = "63a001270482abfc49f49935";
   const listing = {
     brand: "Mercedes Benz",
     model: "GLA180",
@@ -37,14 +39,31 @@ function isAuthenticatedUser(req, res, next) {
   }
 }
 
-listing.post("/create", [isAuthenticatedUser], async (req, res) => {
-  try {
-    const createdListing = await Listing.create(req.body);
-    res.status(200).send(createdListing);
-  } catch (error) {
-    res(400).json({ error: error.message });
+listing.post(
+  "/create",
+  body("brand").isAlpha(["en-US"], { ignore: " _-" }),
+  body("type").isAlpha(),
+  body("price").isCurrency(),
+  body("transmission").isAlpha(),
+  body("fuel").isAlpha(),
+  body("availability").isBoolean(),
+  body("image").isURL(),
+  body("location").isAlpha(),
+  [isAuthenticatedUser],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const createdListing = await Listing.create(req.body);
+      res.status(200).send(createdListing);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
   }
-});
+);
 
 listing.get("/retrieve/:id", [isAuthenticatedUser], async (req, res) => {
   const { id } = req.params;
