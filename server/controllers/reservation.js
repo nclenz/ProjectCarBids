@@ -7,7 +7,8 @@ const renter = require("./renter");
 reservation.get("/seed", async (req, res) => {
   const reservation = {
     username: "admin",
-    dates: "09-12-2022",
+    startdate: "09-12-2022",
+    enddate: "11-12-2022",
   };
   try {
     await Reservation.deleteMany({});
@@ -24,7 +25,6 @@ function isAuthenticatedUser(req, res, next) {
   } else {
     return res.status(401).json({ msg: "Unauthorized User" });
   }
-  
 }
 
 reservation.post("/reserve", [isAuthenticatedUser], async (req, res) => {
