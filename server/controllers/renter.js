@@ -33,8 +33,9 @@ function isAuthenticatedRenter(req, res, next) {
     return res.status(401).json({ msg: "Unauthorized User" });
   }
 }
+
 /**
- * Validation for user sign-up
+ * Validation for renter sign-up
  * name - check if string contains only letters, ignore white-spaces
  * email - check if string is a valid email address
  * password - check if string is alphanumeric and at least 8 alphanumeric characters
@@ -43,7 +44,6 @@ function isAuthenticatedRenter(req, res, next) {
  * username - check if username is already in use
  * email - check if the email is already in use
  */
-
 renter.post(
   "/signup",
   body("name").isAlpha(["en-US"], { ignore: " _-" }),
@@ -73,12 +73,10 @@ renter.post(
     }
 
     try {
-      // add validation checks for password, credit-card and cvc
       const data = req.body;
       data.password = bcrypt.hashSync(data.password, 10);
       data.creditCard = bcrypt.hashSync(data.creditCard, 10);
       data.cvc = bcrypt.hashSync(data.cvc, 10);
-
       const newRenter = await Renter.create(data);
       res.status(200).send(newRenter);
     } catch (error) {
