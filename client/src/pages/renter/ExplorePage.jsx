@@ -47,7 +47,7 @@ const ExplorePage = () => {
                 />
                 <div className="card-content">
                   <h3 className="card-title" ref={titleRef}>
-                    ${listing.price}
+                    ${listing.price}/day
                   </h3>
                   <h3 className="card-title" ref={priceRef}>
                     {listing.brand}

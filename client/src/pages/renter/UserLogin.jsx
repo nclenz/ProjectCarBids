@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const UserLogin = ({ setIsUserModalOpen, setLogin }) => {
+const UserLogin = ({ setIsUserModalOpen, setLogin, login }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");

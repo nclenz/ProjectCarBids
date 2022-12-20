@@ -94,7 +94,7 @@ app.post("/api/renterlogin", async (req, res) => {
 });
 
 // logout
-app.delete("/logout", (req, res) => {
+app.delete("/api/logout", (req, res) => {
   req.session.destroy(() => {
     res.json({ msg: "Sucessfully logged out" });
   });

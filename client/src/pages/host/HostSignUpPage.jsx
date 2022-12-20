@@ -94,6 +94,15 @@ const HostSignUpPage = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </label>
+        <label>
+          Mobile:
+          <input
+            type="text"
+            value={mobileNumber}
+            onChange={(e) => setMobileNumber(e.target.value)}
+          />
+        </label>
+        <br />
         <button type="submit">Sign Up</button>
         <p>{displayMessage}</p>
       </form>
