@@ -2,7 +2,15 @@ const express = require("express");
 const { restart } = require("nodemon");
 const reservation = express.Router();
 const Reservation = require("../models/reservation");
+const Listing = require("../models/listing");
+const Owner = require("../models/owner");
+
 const renter = require("./renter");
+const twilio = require("twilio");
+
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const twilioNumber = process.env.TWILIO_PHONE_NUMBER;
 
 reservation.get("/seed", async (req, res) => {
   const reservation = {
@@ -19,6 +27,19 @@ reservation.get("/seed", async (req, res) => {
   }
 });
 
+function sendSmsNotification(message, customerPhoneNumber) {
+  const client = twilio(accountSid, authToken);
+  const options = {
+    to: customerPhoneNumber,
+    from: twilioNumber,
+    body: message,
+  };
+
+  return client.messages.create(options).then((message) => {
+    console.log(message.sid);
+  });
+}
+
 function isAuthenticatedUser(req, res, next) {
   if (req.session.role) {
     next();
@@ -27,12 +48,22 @@ function isAuthenticatedUser(req, res, next) {
   }
 }
 
-reservation.post("/reserve", [isAuthenticatedUser], async (req, res) => {
+reservation.post("/reserve", async (req, res) => {
   try {
+    const listing = await Listing.findById(req.body.listing);
+    const owner = await Owner.findById(listing.owner);
+    const number = `+65${owner.mobile}`;
+    const message = `Dear ${owner.name}, \n There is a upcoming reservation for your vehicle 
+    from ${req.body.startdate} to ${req.body.enddate}. Please ensure that your vehicle is 
+    available for pick-up during this period.\n Thank you choosing CarRental! `;
+
+    // const createdReservation = await Reservation.create(req.body);
     const createdReservation = await Reservation.create(req.body);
+    sendSmsNotification(message, number);
+
     res.status(200).send(createdReservation);
   } catch (error) {
-    res(400).json({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 });
 

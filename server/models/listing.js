@@ -15,7 +15,7 @@ const listingSchema = new mongoose.Schema(
     image: { type: String, required: true },
     location: { type: String, required: true },
     reservation: [{ type: mongoose.Schema.Types.ObjectId, ref: "reservation" }],
-    owner: [{ type: mongoose.Schema.Types.ObjectId, ref: "owner" }],
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: "owner" },
   },
   { timestamps: true }
 );
