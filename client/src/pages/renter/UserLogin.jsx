@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const UserLogin = ({ setIsUserModalOpen, setLogin }) => {
+const UserLogin = ({ setIsUserModalOpen, setLogin, login }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
@@ -26,7 +26,11 @@ const UserLogin = ({ setIsUserModalOpen, setLogin }) => {
       navigate("/explore");
       setIsUserModalOpen(false);
     } else {
-      setMsg("Login Fail");
+      const promise = response.json();
+      promise.then(function (result) {
+        setMsg(result.msg);
+      });
+      // setMsg("Login Fail");
     }
   };
 
@@ -53,7 +57,9 @@ const UserLogin = ({ setIsUserModalOpen, setLogin }) => {
       </form>
       <span>
         <p>NOT A MEMBER? Register for a free account</p>
-        <Link to="/usersignup">Sign Up</Link>
+        <Link to="/usersignup" onClick={() => setIsUserModalOpen(false)}>
+          Sign Up
+        </Link>
       </span>
       <p>{msg}</p>
     </>

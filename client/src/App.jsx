@@ -12,19 +12,19 @@ import EditPage from "./pages/host/EditPage";
 import Navbar from "./components/Navbar/Navbar";
 import UserLogin from "./pages/renter/UserLogin";
 import HostLogin from "./pages/host/HostLogin";
+import LogOut from "./pages/Logout";
 
 export const LoginContext = createContext();
 
 function App() {
   const [login, setLogin] = useState("");
 
-  console.log(login);
+  // console.log(login);
 
   return (
     <>
-
       <BrowserRouter>
-        <Navbar setLogin={setLogin} />
+        <Navbar setLogin={setLogin} login={login} />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/hostsignup" element={<HostSignUpPage />} />
@@ -37,7 +37,8 @@ function App() {
             path="/api/reservation/retrieve/:id"
             element={<ReservationPage />}
           />
-          <Route path="/edit/:id" element={<EditPage />} />
+          <Route path="api/listing/edit/:id" element={<EditPage />} />
+          <Route path="/logout" element={<LogOut />} />
         </Routes>
       </BrowserRouter>
     </>

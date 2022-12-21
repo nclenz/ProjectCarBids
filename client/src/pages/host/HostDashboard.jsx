@@ -15,6 +15,7 @@ const HostDashboard = () => {
           },
         });
         const result = await response.json();
+        console.log(result);
         setListings(result);
       } catch (error) {
         console.log({ error });
@@ -54,7 +55,7 @@ const HostDashboard = () => {
                 }}
               />
               <div className="card-content">
-                <h3 className="card-title">{listing.price}</h3>
+                <h3 className="card-title">${listing.price}/day</h3>
                 <h3 className="card-title">{listing.brand}</h3>
                 <h4 className="card-subtitle">{listing.model}</h4>
                 <div>Transmission: {listing.type}</div>
@@ -73,7 +74,7 @@ const HostDashboard = () => {
                 </button>
                 <button
                   className="edit-button"
-                  onClick={() => navigate(`/edit/${listing._id}`)}
+                  onClick={() => navigate(`/api/listing/edit/${listing._id}`)}
                 >
                   Edit
                 </button>
