@@ -37,9 +37,6 @@ const Navbar = ({ login, setLogin }) => {
           <FaCar />
         </Link>
         <div className="nav-items">
-          <Link to="/explore" className="nav-item">
-            Explore
-          </Link>
           <a href="https://wa.me/6588868257" className="nav-item">
             <FaWhatsapp />
             Contact Us

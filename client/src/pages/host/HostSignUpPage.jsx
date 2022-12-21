@@ -33,6 +33,7 @@ const HostSignUpPage = () => {
       if (!Response.ok) {
         throw new Error("Network response was not OK");
       }
+      setIsHostModalOpen(false);
       setUsername("");
       setName("");
       setPassword("");
@@ -43,6 +44,7 @@ const HostSignUpPage = () => {
       navigate("/hostdashboard");
     } catch (error) {
       setDisplayMessage("something went wrong");
+      console.log(error);
     }
   };
   return (

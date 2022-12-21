@@ -11,15 +11,16 @@ const UserSignUpPage = () => {
   const [email, setEmail] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState([]);
   const [creditCard, setCreditCard] = useState("");
   const [cvc, setCvc] = useState("");
   const navigate = useNavigate();
 
   const handleCreateListing = async (e) => {
     e.preventDefault();
+    console.log("Click");
     try {
-      let Response = await fetch("/api/rent/signup", {
+      let response = await fetch("/api/rent/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,24 +32,36 @@ const UserSignUpPage = () => {
           email,
           creditCard,
           cvc,
-          // mobileNumber,
+          mobileNumber,
         }),
       });
-      if (!Response.ok) {
-        throw new Error("Network response was not OK");
+
+      if (!response.ok) {
+        // console.log(response.json());
+        const promise = response.json();
+        promise.then(function (result) {
+          console.log(result.errors);
+          setMessage(result.errors);
+        });
       }
-      setUsername("");
-      setName("");
-      setPassword("");
-      setConfirmPassword("");
-      setEmail("");
-      setMobileNumber("");
-      setCreditCard("");
-      setCvc("");
-      setMessage("User created successfully");
-      navigate("/explore");
+      //   console.log(Response);
+      //   throw new Error("Network response was not OK");
+
+      if (response.ok) {
+        setUsername("");
+        setName("");
+        setPassword("");
+        setConfirmPassword("");
+        setEmail("");
+        setMobileNumber("");
+        setCreditCard("");
+        setCvc("");
+        setMessage("User created successfully");
+        navigate("/explore");
+      }
     } catch (error) {
-      setMessage("something went wrong");
+      setMessage("something wrong");
+      // console.log(error.message);
     }
   };
   return (
@@ -66,6 +79,7 @@ const UserSignUpPage = () => {
               onChange={(e) => setUsername(e.target.value)}
             />
           </label>
+          <br />
           <label htmlFor="email">
             Email:
             <input
@@ -75,6 +89,17 @@ const UserSignUpPage = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </label>
+          <br />
+          <label htmlFor="mobileNumber">
+            Mobile Number:
+            <input
+              type="Number"
+              id="mobileNumber"
+              value={mobileNumber}
+              onChange={(e) => setMobileNumber(e.target.value)}
+            />
+          </label>
+          <br />
           <label htmlFor="name">
             Name:
             <input
@@ -84,6 +109,7 @@ const UserSignUpPage = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </label>
+          <br />
           <label htmlFor="password">
             Password:
             <input
@@ -93,34 +119,38 @@ const UserSignUpPage = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </label>
+          <br />
           <label htmlFor="confirmPassword">
             Confirm Password:
             <input
-              type="confirmPassword"
+              type="password"
               id="confirmPassword"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </label>
+          <br />
           <label htmlFor="crediCard">
             Credit Card Numbers:
             <input
-              type="creditcard"
+              type="text"
               id="crediCard"
               value={creditCard}
               onChange={(e) => setCreditCard(e.target.value)}
             />
           </label>
+          <br />
 
           <label htmlFor="cvc">
             CVC:
             <input
-              type="cvc"
+              type="text"
               id="cvc"
               value={cvc}
               onChange={(e) => setCvc(e.target.value)}
             />
           </label>
+          <br />
           <button type="submit">Sign Up</button>
         </form>
         <p>Date of Birth: </p>
@@ -129,7 +159,15 @@ const UserSignUpPage = () => {
           selected={startDate}
           onChange={(date) => setStartDate(date)}
         />
-        <div className="message">{message ? <p>{message}</p> : null}</div>
+        <div className="message">
+          {message.length > 0
+            ? message.map((error) => (
+                <p>
+                  {error.param}:{error.msg}
+                </p>
+              ))
+            : null}
+        </div>
       </div>
     </>
   );

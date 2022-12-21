@@ -15,6 +15,7 @@ const HostDashboard = () => {
           },
         });
         const result = await response.json();
+        console.log(result);
         setListings(result);
       } catch (error) {
         console.log({ error });

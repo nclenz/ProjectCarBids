@@ -21,8 +21,6 @@ const HostLogin = ({ setIsHostModalOpen, setLogin, login }) => {
 
     if (response.ok) {
       fetch("/accounts");
-      // .then((request) => request.json())
-      // .then((data) => setMsg(data));
       setLogin("host");
       navigate("/hostdashboard");
       setIsHostModalOpen(false);
@@ -51,7 +49,9 @@ const HostLogin = ({ setIsHostModalOpen, setLogin, login }) => {
       </form>
       <span>
         <p>NOT A MEMBER? Register for a free account</p>
-        <Link to="/hostsignup">Sign Up</Link>
+        <Link to="/hostsignup" onClick={() => setIsHostModalOpen(false)}>
+          Sign Up
+        </Link>
       </span>
       <p>{msg}</p>
     </>
