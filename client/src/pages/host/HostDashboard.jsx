@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { OwnerContext } from "../../App";
 
 const HostDashboard = () => {
+  const { owner, setOwner } = useContext(OwnerContext);
   const [listings, setListings] = useState([]);
   const navigate = useNavigate();
 
@@ -15,8 +17,13 @@ const HostDashboard = () => {
           },
         });
         const result = await response.json();
-        // console.log(result);
-        setListings(result);
+        // console.log("result",result);
+        const ownListing = result.filter(
+          (listing) => listing.owner._id === owner
+        );
+        console.log(ownListing);
+        console.log("owner", owner);
+        setListings(ownListing);
       } catch (error) {
         console.log({ error });
       }

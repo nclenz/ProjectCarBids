@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import brands from "../../brands/brands.json";
 import Navbar from "../../components/Navbar/Navbar";
+import { OwnerContext } from "../../App";
 // import { Formik, Form } from "formik";
 
-const CreateListing = (ownerID) => {
+const CreateListing = () => {
+  const { owner, setOwner } = useContext(OwnerContext);
+
   const [msg, setMsg] = useState("");
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
@@ -18,30 +21,30 @@ const CreateListing = (ownerID) => {
 
   const handleCreate = async (e) => {
     e.preventDefault();
-    const info = {
-      brand,
-      model,
-      type,
-      price,
-      transmission,
-      fuel,
-      availability,
-      location,
-      ownerID,
-    };
+    // const info = {
+    //   brand,
+    //   model,
+    //   type,
+    //   price,
+    //   transmission,
+    //   fuel,
+    //   availability,
+    //   location,
+    //   ownerID,
+    // };
 
     try {
       const formData = new FormData(e.target);
-      formData.append("owner", "63a001270482abfc49f49935");
+      formData.append("owner", owner);
       console.log(formData.get("image"));
       console.log(formData.get("owner"));
-      const response = await fetch("/api/listing/create", {
+      const response = await fetch("api/listing/create", {
         method: "POST",
         body: formData,
       });
 
       if (!response.ok) {
-        throw new Error("Network response was not OK");
+        console.log(response.json());
       }
       const data = await response.json();
       console.log(data);

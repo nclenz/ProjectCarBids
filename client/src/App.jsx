@@ -14,34 +14,37 @@ import UserLogin from "./pages/renter/UserLogin";
 import HostLogin from "./pages/host/HostLogin";
 import LogOut from "./pages/Logout";
 
-export const LoginContext = createContext();
+export const OwnerContext = createContext();
 
 function App() {
   const [login, setLogin] = useState("");
+  const [owner, setOwner] = useState("");
 
   // console.log(login);
 
   return (
-    <>
-      <BrowserRouter>
-        <Navbar setLogin={setLogin} login={login} />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/hostsignup" element={<HostSignUpPage />} />
-          <Route path="/usersignup" element={<UserSignUpPage />} />
-          <Route path="/explore" element={<ExplorePage />} />
-          <Route path="/manage" element={<ManageListing />} />
-          <Route path="/create" element={<CreateListing />} />
-          <Route path="/hostdashboard" element={<HostDashboard />} />
-          <Route
-            path="/api/reservation/retrieve/:id"
-            element={<ReservationPage />}
-          />
-          <Route path="api/listing/edit/:id" element={<EditPage />} />
-          <Route path="/logout" element={<LogOut />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+    <OwnerContext.Provider value={{ owner, setOwner }}>
+      <>
+        <BrowserRouter>
+          <Navbar setLogin={setLogin} login={login} />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/hostsignup" element={<HostSignUpPage />} />
+            <Route path="/usersignup" element={<UserSignUpPage />} />
+            <Route path="/explore" element={<ExplorePage />} />
+            <Route path="/manage" element={<ManageListing />} />
+            <Route path="/create" element={<CreateListing />} />
+            <Route path="/hostdashboard" element={<HostDashboard />} />
+            <Route
+              path="/api/reservation/retrieve/:id"
+              element={<ReservationPage />}
+            />
+            <Route path="api/listing/edit/:id" element={<EditPage />} />
+            <Route path="/logout" element={<LogOut />} />
+          </Routes>
+        </BrowserRouter>
+      </>
+    </OwnerContext.Provider>
   );
 }
 
