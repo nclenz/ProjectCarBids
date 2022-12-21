@@ -72,10 +72,10 @@ app.post("/api/hostlogin", async (req, res) => {
   }
 
   req.session.role = "host";
-  return res.json(user);
+  return res.json(user._id);
 });
 
-// user logout
+// user login
 app.post("/api/renterlogin", async (req, res) => {
   const { username, password } = req.body;
   const user = await Renter.findOne({ username }).exec();
@@ -90,7 +90,7 @@ app.post("/api/renterlogin", async (req, res) => {
 
   req.session.userid = username;
   req.session.role = "renter";
-  return res.json({ msg: "user logged in" });
+  return res.json(user._id);
 });
 
 // logout
