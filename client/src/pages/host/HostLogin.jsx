@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const HostLogin = ({ setIsHostModalOpen, setLogin, login }) => {
+const HostLogin = ({
+  setIsHostModalOpen,
+  setLogin,
+  login,
+  setOwnerID,
+  ownerID,
+}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
@@ -20,10 +26,16 @@ const HostLogin = ({ setIsHostModalOpen, setLogin, login }) => {
     });
 
     if (response.ok) {
-      fetch("/accounts");
-      setLogin("host");
-      navigate("/hostdashboard");
-      setIsHostModalOpen(false);
+      try {
+        const result = await response.json();
+        console.log(result._id);
+        setOwnerID(result._id);
+        setLogin("host");
+        navigate("/hostdashboard");
+        setIsHostModalOpen(false);
+      } catch (error) {
+        console.log({ msg: "catches error" });
+      }
     } else {
       setMsg("Login Fail");
     }

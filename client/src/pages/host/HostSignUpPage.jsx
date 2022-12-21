@@ -9,15 +9,17 @@ const HostSignUpPage = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [mobileNumber, setMobileNumber] = useState("");
+  const [mobile, setMobile] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [displayMessage, setDisplayMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+    console.log(mobile, username);
+
     try {
-      let Response = await fetch("/api/host/signup", {
+      let response = await fetch("/api/host/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,21 +29,27 @@ const HostSignUpPage = () => {
           name,
           password,
           email,
-          // mobileNumber,
+          mobile,
         }),
       });
-      if (!Response.ok) {
-        throw new Error("Network response was not OK");
+      if (!response.ok) {
+        const promise = response.json();
+        promise.then(function (result) {
+          const msgString = JSON.stringify(result.errors);
+          console.log(msgString);
+          setDisplayMessage(msgString);
+        });
+      } else {
+        setUsername("");
+        setName("");
+        setPassword("");
+        setConfirmPassword("");
+        setEmail("");
+        setMobile("");
+        setDisplayMessage("User created successfully");
+        // navigate("/hostdashboard");
       }
-      setIsHostModalOpen(false);
-      setUsername("");
-      setName("");
-      setPassword("");
-      setConfirmPassword("");
-      setEmail("");
-      setMobileNumber("");
-      setDisplayMessage("User created successfully");
-      navigate("/hostdashboard");
+      // }
     } catch (error) {
       setDisplayMessage("something went wrong");
       console.log(error);
@@ -100,8 +108,8 @@ const HostSignUpPage = () => {
           Mobile:
           <input
             type="text"
-            value={mobileNumber}
-            onChange={(e) => setMobileNumber(e.target.value)}
+            value={mobile}
+            onChange={(e) => setMobile(e.target.value)}
           />
         </label>
         <br />

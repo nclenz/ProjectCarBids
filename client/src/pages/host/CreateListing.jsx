@@ -4,7 +4,7 @@ import brands from "../../brands/brands.json";
 import Navbar from "../../components/Navbar/Navbar";
 // import { Formik, Form } from "formik";
 
-const CreateListing = () => {
+const CreateListing = (ownerID) => {
   const [msg, setMsg] = useState("");
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
@@ -29,6 +29,7 @@ const CreateListing = () => {
       availability,
       image,
       location,
+      ownerID,
     };
 
     try {

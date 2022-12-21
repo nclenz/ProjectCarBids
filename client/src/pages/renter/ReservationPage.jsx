@@ -37,9 +37,9 @@ const ReservationPage = () => {
                 <h4 className="card-subtitle">{listing.model}</h4>
                 <div>Transmission: {listing.type}</div>
                 <div>Fuel Type: {listing.fuel}</div>
-                {listing.availability && (
-                  <div>Availability: {listing.availability}</div>
-                )}
+
+                <div>Availability: {listing.availability}</div>
+
                 <div>location: {listing.location}</div>
               </div>
             </div>
