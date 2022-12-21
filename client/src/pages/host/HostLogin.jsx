@@ -4,7 +4,6 @@ import { OwnerContext } from "../../App";
 
 const HostLogin = ({ setIsHostModalOpen, setLogin, login }) => {
   const { owner, setOwner } = useContext(OwnerContext);
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
 

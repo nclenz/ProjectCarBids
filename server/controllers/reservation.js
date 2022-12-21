@@ -59,7 +59,7 @@ reservation.post("/reserve", async (req, res) => {
 
     // const createdReservation = await Reservation.create(req.body);
     const createdReservation = await Reservation.create(req.body);
-    sendSmsNotification(message, number);
+    // sendSmsNotification(message, number);
 
     res.status(200).send(createdReservation);
   } catch (error) {

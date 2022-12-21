@@ -10,40 +10,42 @@ import { createContext, useState } from "react";
 import ReservationPage from "./pages/renter/ReservationPage";
 import EditPage from "./pages/host/EditPage";
 import Navbar from "./components/Navbar/Navbar";
-import UserLogin from "./pages/renter/UserLogin";
-import HostLogin from "./pages/host/HostLogin";
 import LogOut from "./pages/Logout";
 
 export const OwnerContext = createContext();
+export const UserContext = createContext();
 
 function App() {
   const [login, setLogin] = useState("");
   const [owner, setOwner] = useState("");
+  const [username, setUsername] = useState("");
 
   // console.log(login);
 
   return (
     <OwnerContext.Provider value={{ owner, setOwner }}>
-      <>
-        <BrowserRouter>
-          <Navbar setLogin={setLogin} login={login} />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/hostsignup" element={<HostSignUpPage />} />
-            <Route path="/usersignup" element={<UserSignUpPage />} />
-            <Route path="/explore" element={<ExplorePage />} />
-            <Route path="/manage" element={<ManageListing />} />
-            <Route path="/create" element={<CreateListing />} />
-            <Route path="/hostdashboard" element={<HostDashboard />} />
-            <Route
-              path="/api/reservation/retrieve/:id"
-              element={<ReservationPage />}
-            />
-            <Route path="api/listing/edit/:id" element={<EditPage />} />
-            <Route path="/logout" element={<LogOut />} />
-          </Routes>
-        </BrowserRouter>
-      </>
+      <UserContext.Provider value={{ username, setUsername }}>
+        <>
+          <BrowserRouter>
+            <Navbar setLogin={setLogin} login={login} />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/hostsignup" element={<HostSignUpPage />} />
+              <Route path="/usersignup" element={<UserSignUpPage />} />
+              <Route path="/explore" element={<ExplorePage />} />
+              <Route path="/manage" element={<ManageListing />} />
+              <Route path="/create" element={<CreateListing />} />
+              <Route path="/hostdashboard" element={<HostDashboard />} />
+              <Route
+                path="/api/reservation/retrieve/:id"
+                element={<ReservationPage />}
+              />
+              <Route path="api/listing/edit/:id" element={<EditPage />} />
+              <Route path="/logout" element={<LogOut />} />
+            </Routes>
+          </BrowserRouter>
+        </>
+      </UserContext.Provider>
     </OwnerContext.Provider>
   );
 }

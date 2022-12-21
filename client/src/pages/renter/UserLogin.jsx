@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../App";
 
 const UserLogin = ({ setIsUserModalOpen, setLogin, login }) => {
-  const [username, setUsername] = useState("");
+  const { username, setUsername } = useContext(UserContext);
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
@@ -18,19 +19,21 @@ const UserLogin = ({ setIsUserModalOpen, setLogin, login }) => {
       body: JSON.stringify({ username, password }),
     });
 
-    if (response.ok) {
-      fetch("/accounts");
-      // .then((request) => request.json())
-      // .then((data) => setMsg(data));
-      setLogin("user");
-      navigate("/explore");
-      setIsUserModalOpen(false);
-    } else {
-      const promise = response.json();
-      promise.then(function (result) {
-        setMsg(result.msg);
-      });
-      // setMsg("Login Fail");
+    try {
+      if (!response.ok) {
+        const promise = response.json();
+        promise.then(function (result) {
+          setMsg(result.msg);
+        });
+      } else {
+        const result = await response.json();
+        setUsername(result);
+        setLogin("user");
+        navigate("/explore");
+        setIsUserModalOpen(false);
+      }
+    } catch (error) {
+      console.log("catch error");
     }
   };
 
@@ -61,7 +64,8 @@ const UserLogin = ({ setIsUserModalOpen, setLogin, login }) => {
           Sign Up
         </Link>
       </span>
-      <p>{msg}</p>
+      <p>msg {msg}</p>
+      <p>username {username}</p>
     </>
   );
 };
