@@ -13,7 +13,6 @@ const CreateListing = (ownerID) => {
   const [transmission, setTransmission] = useState("");
   const [fuel, setFuel] = useState("");
   const [availability, setAvailability] = useState("");
-  const [image, setImage] = useState("");
   const [location, setLocation] = useState("");
   const navigate = useNavigate();
 
@@ -27,19 +26,20 @@ const CreateListing = (ownerID) => {
       transmission,
       fuel,
       availability,
-      image,
       location,
       ownerID,
     };
 
     try {
+      const formData = new FormData(e.target);
+      formData.append("owner", "63a001270482abfc49f49935");
+      console.log(formData.get("image"));
+      console.log(formData.get("owner"));
       const response = await fetch("/api/listing/create", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(info),
+        body: formData,
       });
+
       if (!response.ok) {
         throw new Error("Network response was not OK");
       }
@@ -47,6 +47,7 @@ const CreateListing = (ownerID) => {
       console.log(data);
       navigate("/hostdashboard");
     } catch (error) {
+      console.log(error);
       setMsg("something went wrong");
     }
   };
@@ -54,7 +55,7 @@ const CreateListing = (ownerID) => {
   return (
     <>
       <Navbar />
-      <form className="car-form" onSubmit={handleCreate}>
+      <form className="car-form" onSubmit={handleCreate} id="formElem">
         <label htmlFor="brand" className="car-form__label">
           Brand:
         </label>
@@ -85,6 +86,11 @@ const CreateListing = (ownerID) => {
           onChange={(event) => setModel(event.target.value)}
           required
         />
+        <br />
+        <label htmlFor="image" className="car-form__label">
+          Upload an image:
+        </label>
+        <input type="file" className="form-control-file" name="image" />
         <br />
         <label htmlFor="type" className="car-form__label">
           Type:
@@ -156,18 +162,6 @@ const CreateListing = (ownerID) => {
           name="availability"
           value="true"
           onChange={(event) => setAvailability(event.target.value)}
-          required
-        />
-        <br />
-        <label htmlFor="image" className="car-form__label">
-          Image:
-        </label>
-        <br />
-        <input
-          type="text"
-          id="image"
-          name="image"
-          onChange={(event) => setImage(event.target.value)}
           required
         />
         <br />
