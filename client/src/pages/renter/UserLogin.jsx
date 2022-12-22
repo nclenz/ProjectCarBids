@@ -27,6 +27,7 @@ const UserLogin = ({ setIsUserModalOpen, setLogin, login }) => {
         });
       } else {
         const result = await response.json();
+        console.log(result);
         setUsername(result);
         setLogin("user");
         navigate("/explore");
@@ -65,7 +66,6 @@ const UserLogin = ({ setIsUserModalOpen, setLogin, login }) => {
         </Link>
       </span>
       <p>msg {msg}</p>
-      <p>username {username}</p>
     </>
   );
 };
