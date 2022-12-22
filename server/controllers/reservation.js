@@ -92,8 +92,8 @@ reservation.post("/reserve", async (req, res) => {
     const message = `Dear ${owner.name}, There is a upcoming reservation for your vehicle from ${req.body.startdate} to ${req.body.enddate}. Please ensure that your vehicle is available for pick-up during this period. Thank you choosing CarRental! `;
 
     const createdReservation = await Reservation.create(req.body);
-    console.log(req.body)
-    // sendSmsNotification(message, number);
+    console.log(req.body);
+    sendSmsNotification(message, number);
 
     res.status(200).send(createdReservation);
   } catch (error) {
@@ -113,7 +113,9 @@ reservation.get(
 
     const { id } = req.params;
     try {
-      const reservation = await Reservation.find({ username: id });
+      const reservation = await Reservation.find({ username: id })
+        .populate("listing")
+        .exec();
       // const reservation = await Reservation.findById(id);
       res.status(200).json(reservation);
     } catch (error) {
