@@ -110,7 +110,28 @@ reservation.get(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
+    const { id } = req.params;
+    try {
+      const reservation = await Reservation.find({ username: id })
+        .populate("listing")
+        .exec();
+      // const reservation = await Reservation.findById(id);
+      res.status(200).json(reservation);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+);
 
+reservation.get(
+  "/reserve/:id",
+  [isAuthenticatedUser],
+  body("id").isMongoId(),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     const { id } = req.params;
     try {
       const reservation = await Reservation.find({ username: id })
