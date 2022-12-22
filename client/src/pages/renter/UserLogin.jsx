@@ -65,7 +65,7 @@ const UserLogin = ({ setIsUserModalOpen, setLogin, login }) => {
           Sign Up
         </Link>
       </span>
-      <p>msg {msg}</p>
+      <p> {msg}</p>
     </>
   );
 };

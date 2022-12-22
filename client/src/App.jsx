@@ -11,6 +11,7 @@ import ReservationPage from "./pages/renter/ReservationPage";
 import EditPage from "./pages/host/EditPage";
 import Navbar from "./components/Navbar/Navbar";
 import LogOut from "./pages/Logout";
+import MyReservation from "./pages/renter/MyReservation";
 
 export const OwnerContext = createContext();
 export const UserContext = createContext();
@@ -37,11 +38,15 @@ function App() {
               <Route path="/create" element={<CreateListing />} />
               <Route path="/hostdashboard" element={<HostDashboard />} />
               <Route
-                path="/api/reservation/retrieve/:id"
+                path="/api/reservation/reserve/:id"
                 element={<ReservationPage />}
               />
               <Route path="api/listing/edit/:id" element={<EditPage />} />
               <Route path="/logout" element={<LogOut />} />
+              <Route
+                path="/api/reservation/retrieve/:id"
+                element={<MyReservation />}
+              />
             </Routes>
           </BrowserRouter>
         </>

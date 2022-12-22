@@ -4,12 +4,11 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const UserSignUpPage = () => {
-  const [startDate, setStartDate] = useState(new Date());
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [mobileNumber, setMobileNumber] = useState("");
+  const [mobile, setMobile] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState([]);
   const [creditCard, setCreditCard] = useState("");
@@ -18,7 +17,6 @@ const UserSignUpPage = () => {
 
   const handleCreateListing = async (e) => {
     e.preventDefault();
-    console.log("Click");
     try {
       let response = await fetch("/api/rent/signup", {
         method: "POST",
@@ -32,7 +30,7 @@ const UserSignUpPage = () => {
           email,
           creditCard,
           cvc,
-          mobileNumber,
+          mobile,
         }),
       });
 
@@ -44,24 +42,21 @@ const UserSignUpPage = () => {
           setMessage(result.errors);
         });
       }
-      //   console.log(Response);
-      //   throw new Error("Network response was not OK");
 
       if (response.ok) {
-        setUsername("");
-        setName("");
-        setPassword("");
-        setConfirmPassword("");
-        setEmail("");
-        setMobileNumber("");
-        setCreditCard("");
-        setCvc("");
+        // setUsername("");
+        // setName("");
+        // setPassword("");
+        // setConfirmPassword("");
+        // setEmail("");
+        // setMobile("");
+        // setCreditCard("");
+        // setCvc("");
         setMessage("User created successfully");
-        navigate("/explore");
+        // navigate("/explore");
       }
     } catch (error) {
-      setMessage("something wrong");
-      // console.log(error.message);
+      setMessage("Catches Error");
     }
   };
   return (
@@ -90,13 +85,13 @@ const UserSignUpPage = () => {
             />
           </label>
           <br />
-          <label htmlFor="mobileNumber">
-            Mobile Number:
+          <label htmlFor="email">
+            Mobile:
             <input
-              type="Number"
-              id="mobileNumber"
-              value={mobileNumber}
-              onChange={(e) => setMobileNumber(e.target.value)}
+              type="text"
+              id="mobile"
+              value={mobile}
+              onChange={(e) => setMobile(e.target.value)}
             />
           </label>
           <br />
@@ -153,21 +148,14 @@ const UserSignUpPage = () => {
           <br />
           <button type="submit">Sign Up</button>
         </form>
-        <p>Date of Birth: </p>
-        <DatePicker
-          closeOnScroll={true}
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-        />
-        <div className="message">
-          {message.length > 0
-            ? message.map((error) => (
-                <p>
-                  {error.param}:{error.msg}
-                </p>
-              ))
-            : null}
-        </div>
+
+        {message.length > 0
+          ? message.map((error) => (
+              <p key={error.param}>
+                {error.param}-{error.msg}
+              </p>
+            ))
+          : null}
       </div>
     </>
   );
