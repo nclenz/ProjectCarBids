@@ -4,7 +4,7 @@ const reservation = express.Router();
 const Reservation = require("../models/reservation");
 const Listing = require("../models/listing");
 const Owner = require("../models/owner");
-const { body, validationResult } = require("express-validator");
+const { body, param, validationResult } = require("express-validator");
 
 const renter = require("./renter");
 const twilio = require("twilio");
@@ -104,7 +104,7 @@ reservation.post("/reserve", async (req, res) => {
 reservation.get(
   "/retrieve/:id",
   [isAuthenticatedUser],
-  body("id").isMongoId(),
+  param("id").trim().isMongoId(),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -126,7 +126,7 @@ reservation.get(
 reservation.get(
   "/reserve/:id",
   [isAuthenticatedUser],
-  body("id").isMongoId(),
+  param("id").isMongoId(),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
