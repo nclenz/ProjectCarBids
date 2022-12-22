@@ -18,7 +18,7 @@ const ReservationPage = () => {
     const fetchData = async () => {
       const response = await fetch("/api/listing/all");
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       const selectedListing = data.find(function (element) {
         return element._id === id;
       });
@@ -27,7 +27,7 @@ const ReservationPage = () => {
     fetchData();
   }, [id]);
 
-  console.log(listings);
+  // console.log(listings);
   const listing = listings._id;
 
   const handleReserve = async (event) => {
@@ -49,7 +49,7 @@ const ReservationPage = () => {
         });
       } else {
         const result = await response.json();
-        console.log("result", result);
+        // console.log("result", result);
         setResult(result);
         navigate(`/api/reservation/retrieve/${username}`);
       }
@@ -57,7 +57,7 @@ const ReservationPage = () => {
       setMsg(error);
     }
   };
-  console.log("username in ReservationPage", username);
+  // console.log("username in ReservationPage", username);
   return (
     <>
       {listings && (

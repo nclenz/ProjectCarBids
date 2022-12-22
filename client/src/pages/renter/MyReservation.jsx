@@ -10,40 +10,35 @@ const MyReservation = () => {
     const fetchData = async () => {
       const response = await fetch(`/api/reservation/retrieve/${id}`);
       const data = await response.json();
-      console.log(data);
+      console.log("data", data);
       setListings(data);
     };
     fetchData();
   }, []);
 
-  console.log(listings);
+  console.log("listing", listings);
   return (
     <>
-      {listings}
-      <div className="card-container">
-        <div className="card">
-          <div
+      {/* {listings} */}
+
+      {/* <div
             className="card-image"
             style={{
               backgroundImage: `url(${listings.image})`,
             }}
-          />
-          <div className="card-content">
-            <h3 className="card-title">{listings.price}</h3>
-            <h3 className="card-title">{listings.brand}</h3>
-            <h4 className="card-subtitle">{listings.model}</h4>
-            <div>Transmission: {listings.type}</div>
-            <div>Fuel Type: {listings.fuel}</div>
+          /> */}
 
-            <div>Availability: {listings.availability}</div>
+      <h3>{JSON.stringify(listings.startdate)}</h3>
+      <h3>{listings.brand}</h3>
+      <h4>{listings.model}</h4>
+      <div>Transmission: {listings.startdate}</div>
+      <div>Fuel Type: {listings.fuel}</div>
 
-            <div>location: {listings.location}</div>
-            {/* <div>Start Date: {listings.startdate}</div>
-                 <div>End Date: {listings.enddate}</div> */}
-          </div>
-        </div>
-      </div>
-      /
+      <div>Availability: {listings.availability}</div>
+
+      <div>location: {listings.location}</div>
+      <div>Start Date: {listings.startdate}</div>
+      <div>End Date: {listings.enddate}</div>
     </>
   );
 };
