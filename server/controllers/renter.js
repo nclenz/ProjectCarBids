@@ -94,14 +94,25 @@ renter.get("/accounts", [isAuthenticatedRenter], async (req, res) => {
   }
 });
 
-renter.get("/:id", [isAuthenticatedRenter], async (req, res) => {
-  const { id } = req.params;
-  try {
-    const user = await Renter.findById(id);
-    res.json(user);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+renter.get(
+  "/:id",
+  [isAuthenticatedRenter],
+  body("id").isMongoId(),
+  async (req, res) => {
+    const { id } = req.params;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const user = await Renter.findById(id);
+      res.json(user);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
   }
-});
+);
 
 module.exports = renter;

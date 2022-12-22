@@ -84,8 +84,12 @@ owner.get("/accounts", [isAuthenticatedHost], async (req, res) => {
   }
 });
 
-owner.get("/:id", async (req, res) => {
+owner.get("/:id", body("id").isMongoId(), async (req, res) => {
   const { id } = req.params;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   try {
     const user = await Owner.findById(id);
     res.json(user);
