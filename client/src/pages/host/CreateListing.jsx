@@ -159,14 +159,15 @@ const CreateListing = () => {
           Availability:
         </label>
         <br />
-        <input
-          type="checkbox"
+        <select
           id="availability"
           name="availability"
-          value="true"
           onChange={(event) => setAvailability(event.target.value)}
           required
-        />
+        >
+          <option value="true">Available</option>
+          <option value="false">Not Available</option>
+        </select>
         <br />
         <label htmlFor="location" className="car-form__label">
           Location:

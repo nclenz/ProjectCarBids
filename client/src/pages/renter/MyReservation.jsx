@@ -16,31 +16,39 @@ const MyReservation = () => {
     fetchData();
   }, []);
 
-  console.log("listing", listings);
-  return (
-    <>
-      {/* {listings} */}
+  console.log("listings", listings);
 
-      {/* <div
-            className="card-image"
-            style={{
-              backgroundImage: `url(${listings.image})`,
-            }}
-          /> */}
-
-      <h3>{JSON.stringify(listings.startdate)}</h3>
-      <h3>{listings.brand}</h3>
-      <h4>{listings.model}</h4>
-      <div>Transmission: {listings.startdate}</div>
-      <div>Fuel Type: {listings.fuel}</div>
-
-      <div>Availability: {listings.availability}</div>
-
-      <div>location: {listings.location}</div>
-      <div>Start Date: {listings.startdate}</div>
-      <div>End Date: {listings.enddate}</div>
-    </>
-  );
+  {
+    return (
+      listings && (
+        <div className="card-container">
+          {listings.map((card) => (
+            <div key={card._id} className="card">
+              <div
+                className="card-image"
+                style={{
+                  backgroundImage: `url(${card.listing.image})`,
+                }}
+              />
+              <div className="card-content">
+                <h3 className="card-title">${card.listing.price}/day</h3>
+                <h3 className="card-title">{card.listing.brand}</h3>
+                <h4 className="card-subtitle">{card.listing.model}</h4>
+                <div>Transmission: {card.listing.type}</div>
+                <div>Fuel Type: {card.listing.fuel}</div>
+                {card.listing.availability && (
+                  <div>Availability: {card.listing.availability}</div>
+                )}
+                <div>location: {card.location}</div>
+                <div>Start Date: {card.startdate}</div>
+                <div>End Date: {card.enddate}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )
+    );
+  }
 };
 
 export default MyReservation;

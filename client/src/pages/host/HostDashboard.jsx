@@ -62,8 +62,10 @@ const HostDashboard = () => {
                 }}
               />
               <div className="card-content">
-                <h3 className="card-title">${listing.price}/day</h3>
-                <h3 className="card-title">{listing.brand}</h3>
+                <div className="cardHeader">
+                  <h3 className="card-title">{listing.brand}</h3>
+                  <h3 className="card-title">${listing.price}/day</h3>
+                </div>
                 <h4 className="card-subtitle">{listing.model}</h4>
                 <div>Transmission: {listing.type}</div>
                 <div>Fuel Type: {listing.fuel}</div>

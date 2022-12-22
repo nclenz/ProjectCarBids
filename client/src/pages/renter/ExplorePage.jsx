@@ -51,12 +51,14 @@ const ExplorePage = () => {
                     }}
                   />
                   <div className="card-content">
-                    <h3 className="card-title" ref={titleRef}>
-                      ${listing.price}/day
-                    </h3>
-                    <h3 className="card-title" ref={priceRef}>
-                      {listing.brand}
-                    </h3>
+                    <div className="cardHeader">
+                      <h3 className="card-title" ref={priceRef}>
+                        {listing.brand}
+                      </h3>
+                      <h3 className="card-title" ref={titleRef}>
+                        ${listing.price}/day
+                      </h3>
+                    </div>
                     <h4 className="card-subtitle">{listing.model}</h4>
                     <div>Transmission: {listing.type}</div>
                     <div>Fuel Type: {listing.fuel}</div>

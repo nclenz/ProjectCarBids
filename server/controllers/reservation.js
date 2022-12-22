@@ -104,7 +104,7 @@ reservation.post("/reserve", async (req, res) => {
 reservation.get(
   "/retrieve/:id",
   [isAuthenticatedUser],
-  body("id").isMongoId(),
+  // body("id").isMongoId(),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

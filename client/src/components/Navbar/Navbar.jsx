@@ -98,9 +98,9 @@ const Navbar = ({ login, setLogin }) => {
             Log Out
           </p>
 
-          <Link to="/myreservation" className="nav-item">
+          {/* <Link to="/api/reservation/retrieve/:id" className="nav-item">
             My Reservation
-          </Link>
+          </Link> */}
         </div>
       </nav>
     );
