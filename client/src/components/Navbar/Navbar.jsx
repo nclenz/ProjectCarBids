@@ -4,6 +4,7 @@ import { useState, useContext } from "react";
 import { FaCar, FaWhatsapp } from "react-icons/fa";
 import UserLogin from "../../pages/renter/UserLogin";
 import HostLogin from "../../pages/host/HostLogin";
+import MyReservation from "../../pages/renter/MyReservation";
 
 const Navbar = ({ login, setLogin }) => {
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
@@ -93,9 +94,13 @@ const Navbar = ({ login, setLogin }) => {
             Contact Us
           </a>
 
-          <p onClick={handleLogOut}>Log Out</p>
+          <p className="nav-item" onClick={handleLogOut}>
+            Log Out
+          </p>
 
-          <p>My Reservation</p>
+          <Link to="/myreservation" className="nav-item">
+            My Reservation
+          </Link>
         </div>
       </nav>
     );

@@ -1,8 +1,6 @@
 import { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../../App";
-
-import "react-datepicker/dist/react-datepicker.css";
 
 const ReservationPage = () => {
   const [listings, setListings] = useState("");
@@ -10,13 +8,17 @@ const ReservationPage = () => {
   const [enddate, setEndDate] = useState([]);
   const [msg, setMsg] = useState("");
   const { username, setUsername } = useContext(UserContext);
+  const [result, setResult] = useState({});
+  // const { listingID, setListingID } = useContext(ListingIDContext);
+
   let { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("username", username);
     const fetchData = async () => {
       const response = await fetch("/api/listing/all");
       const data = await response.json();
+      console.log(data);
       const selectedListing = data.find(function (element) {
         return element._id === id;
       });
@@ -24,6 +26,7 @@ const ReservationPage = () => {
     };
     fetchData();
   }, [id]);
+
   console.log(listings);
   const listing = listings._id;
 
@@ -41,17 +44,20 @@ const ReservationPage = () => {
       if (!response.ok) {
         const promise = response.json();
         promise.then(function (result) {
-          // setMsg(result.msg);
+          console.log(result);
+          setMsg(result.msg);
         });
       } else {
         const result = await response.json();
-        console.log(result);
+        console.log("result", result);
+        setResult(result);
+        navigate(`/api/reservation/retrieve/${username}`);
       }
     } catch (error) {
       setMsg(error);
     }
   };
-
+  console.log("username in ReservationPage", username);
   return (
     <>
       {listings && (

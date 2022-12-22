@@ -71,7 +71,17 @@ reservation.post("/reserve", async (req, res) => {
 reservation.get("/retrieve/:id", [isAuthenticatedUser], async (req, res) => {
   const { id } = req.params;
   try {
-    const reservation = await Reservation.findById(id);
+    const reservation = await Reservation.find({username: id});
+    res.status(200).json(reservation);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+reservation.get("/reserve/:id", [isAuthenticatedUser], async (req, res) => {
+  const { id } = req.params;
+  try {
+    const reservation = await Reservation.find({username: id});
     res.status(200).json(reservation);
   } catch (error) {
     res.status(400).json({ error: error.message });
