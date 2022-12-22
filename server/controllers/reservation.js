@@ -4,7 +4,7 @@ const reservation = express.Router();
 const Reservation = require("../models/reservation");
 const Listing = require("../models/listing");
 const Owner = require("../models/owner");
-const { body, validationResult } = require("express-validator");
+const { body, param, validationResult } = require("express-validator");
 
 const renter = require("./renter");
 const twilio = require("twilio");
@@ -104,13 +104,34 @@ reservation.post("/reserve", async (req, res) => {
 reservation.get(
   "/retrieve/:id",
   [isAuthenticatedUser],
-  body("id").isMongoId(),
+  param("id").trim().isMongoId(),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
+    const { id } = req.params;
+    try {
+      const reservation = await Reservation.find({ username: id })
+        .populate("listing")
+        .exec();
+      // const reservation = await Reservation.findById(id);
+      res.status(200).json(reservation);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+);
 
+reservation.get(
+  "/reserve/:id",
+  [isAuthenticatedUser],
+  param("id").isMongoId(),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     const { id } = req.params;
     try {
       const reservation = await Reservation.find({ username: id })
