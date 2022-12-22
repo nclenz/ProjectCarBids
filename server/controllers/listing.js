@@ -5,6 +5,7 @@ const { body, validationResult } = require("express-validator");
 const multer = require("multer");
 const aws = require("aws-sdk");
 const Listing = require("../models/listing.js");
+const Reservation = require("../models/reservation.js");
 require("dotenv").config();
 
 listing.get("/seed", async (req, res) => {
@@ -134,15 +135,15 @@ listing.post(
 );
 
 // return the latest listings, up to 10 of them
-listing.get("/latest/:id", async (req, res) => {
-  const { id } = req.params;
+listing.get("/latest/:num", async (req, res) => {
+  const { num } = req.params;
 
-  if (id > 10) {
+  if (num > 10) {
     res.status(400).json({ error: "Limited to 10 latest listings only" });
   }
 
   try {
-    const listings = await Listing.find().sort({ _id: -1 }).limit(id);
+    const listings = await Listing.find().sort({ _id: -1 }).limit(num);
     res.status(200).json(listings);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -161,8 +162,24 @@ listing.get("/retrieve/:id", [isAuthenticatedUser], async (req, res) => {
 });
 
 // remove a listing based on the provided listing ID
-listing.delete("/remove/:id", [isAuthenticatedUser], async (req, res) => {
+listing.delete("/remove/:id", body("id").isMongoId(), async (req, res) => {
   const { id } = req.params;
+  const ObjectId = require("mongoose").Types.ObjectId;
+  // search reservations with listing ID, if dates overlap, deletion is not allowed
+  const today = new Date();
+  today.setUTCHours(0, 0, 0, 0);
+  const foundReservation = await Reservation.find({
+    $or: [{ startdate: { $gte: today } }, { enddate: { $gte: today } }],
+    listing: new ObjectId(id),
+  });
+
+  if (foundReservation.length) {
+    return res.status(400).json({
+      error:
+        "Booking exists, unable to delete listing. Change availability to false instead",
+    });
+  }
+
   try {
     const listing = await Listing.findByIdAndRemove(id);
     res.status(200).json(listing);
@@ -172,7 +189,7 @@ listing.delete("/remove/:id", [isAuthenticatedUser], async (req, res) => {
 });
 
 // update a listing based on the provided listing ID
-listing.put("/edit/:id", async (req, res) => {
+listing.put("/edit/:id", body("id").isMongoId(), async (req, res) => {
   const { id } = req.params;
   if (id.match(/^[0-9a-fA-F]{24}$/)) {
     const data = req.body;
