@@ -1,13 +1,9 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { OwnerContext } from "../../App";
 
-const HostLogin = ({
-  setIsHostModalOpen,
-  setLogin,
-  login,
-  setOwnerID,
-  ownerID,
-}) => {
+const HostLogin = ({ setIsHostModalOpen, setLogin, login }) => {
+  const { owner, setOwner } = useContext(OwnerContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
@@ -28,8 +24,7 @@ const HostLogin = ({
     if (response.ok) {
       try {
         const result = await response.json();
-        console.log(result._id);
-        setOwnerID(result._id);
+        setOwner(result);
         setLogin("host");
         navigate("/hostdashboard");
         setIsHostModalOpen(false);
@@ -42,7 +37,7 @@ const HostLogin = ({
   };
 
   return (
-    <>
+    <OwnerContext.Provider value={{ owner, setOwner }}>
       <form onSubmit={handleSubmit}>
         <label>Username: </label>
         <input
@@ -66,7 +61,7 @@ const HostLogin = ({
         </Link>
       </span>
       <p>{msg}</p>
-    </>
+    </OwnerContext.Provider>
   );
 };
 

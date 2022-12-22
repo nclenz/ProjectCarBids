@@ -70,7 +70,7 @@ listing.post("/upload", upload.single("image"), (req, res) => {
   // uploading photo and save link in database
   s3.upload(params, (error, data) => {
     if (error) {
-      res.status(500).send({ err: error }); // if we get any error while uploading error message will be returned.
+      res.status(500).send({ err: error + "This is "   }); // if we get any error while uploading error message will be returned.
     }
     console.log(data);
   });

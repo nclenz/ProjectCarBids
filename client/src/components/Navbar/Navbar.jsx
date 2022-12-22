@@ -4,13 +4,10 @@ import { useState, useContext } from "react";
 import { FaCar, FaWhatsapp } from "react-icons/fa";
 import UserLogin from "../../pages/renter/UserLogin";
 import HostLogin from "../../pages/host/HostLogin";
-import HostDashboard from "../../pages/host/HostDashboard";
-import CreateListing from "../../pages/host/CreateListing";
 
 const Navbar = ({ login, setLogin }) => {
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const [isHostModalOpen, setIsHostModalOpen] = useState(false);
-  const [ownerID, setOwnerID] = useState("");
 
   const navigate = useNavigate();
 
@@ -72,11 +69,9 @@ const Navbar = ({ login, setLogin }) => {
               login={login}
               setLogin={setLogin}
               setIsHostModalOpen={setIsHostModalOpen}
-              setOwnerID={setOwnerID}
-              ownerID={ownerID}
             />
-            {/* {ownerID && <HostDashboard ownerID={ownerID} />} */}
-            {ownerID && <CreateListing ownerID={ownerID} />}
+
+            {/* {ownerID && <CreateListing ownerID={ownerID} />} */}
           </Modal>
         </div>
       </nav>
