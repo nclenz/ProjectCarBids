@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const listing = express.Router();
-const { body, validationResult } = require("express-validator");
+const { body, param, validationResult } = require("express-validator");
 const multer = require("multer");
 const aws = require("aws-sdk");
 const Listing = require("../models/listing.js");
@@ -70,7 +70,7 @@ listing.post("/upload", upload.single("image"), (req, res) => {
   // uploading photo and save link in database
   s3.upload(params, (error, data) => {
     if (error) {
-      res.status(500).send({ err: error + "This is "   }); // if we get any error while uploading error message will be returned.
+      res.status(500).send({ err: error + "This is " }); // if we get any error while uploading error message will be returned.
     }
     console.log(data);
   });
@@ -162,7 +162,7 @@ listing.get("/retrieve/:id", [isAuthenticatedUser], async (req, res) => {
 });
 
 // remove a listing based on the provided listing ID
-listing.delete("/remove/:id", body("id").isMongoId(), async (req, res) => {
+listing.delete("/remove/:id", param("id").isMongoId(), async (req, res) => {
   const { id } = req.params;
   const ObjectId = require("mongoose").Types.ObjectId;
   // search reservations with listing ID, if dates overlap, deletion is not allowed
@@ -189,7 +189,7 @@ listing.delete("/remove/:id", body("id").isMongoId(), async (req, res) => {
 });
 
 // update a listing based on the provided listing ID
-listing.put("/edit/:id", body("id").isMongoId(), async (req, res) => {
+listing.put("/edit/:id", param("id").isMongoId(), async (req, res) => {
   const { id } = req.params;
   if (id.match(/^[0-9a-fA-F]{24}$/)) {
     const data = req.body;

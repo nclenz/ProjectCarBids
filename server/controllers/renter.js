@@ -1,6 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-const { body, validationResult } = require("express-validator");
+const { param, body, validationResult } = require("express-validator");
 const renter = express.Router();
 const Renter = require("../models/renter.js");
 
@@ -97,7 +97,7 @@ renter.get("/accounts", [isAuthenticatedRenter], async (req, res) => {
 renter.get(
   "/:id",
   [isAuthenticatedRenter],
-  body("id").isMongoId(),
+  param("id").isMongoId(),
   async (req, res) => {
     const { id } = req.params;
 

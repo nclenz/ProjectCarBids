@@ -1,6 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-const { body, validationResult } = require("express-validator");
+const { body, param, validationResult } = require("express-validator");
 const owner = express.Router();
 const Owner = require("../models/owner.js");
 
@@ -19,7 +19,7 @@ owner.post(
   body("name").isAlpha(["en-US"], { ignore: " _-" }),
   body("email").isEmail(),
   body("password").isAlphanumeric().isLength({ min: 8 }),
-  body("mobile").isMobilePhone(["en-SG", true]),
+  body("mobile").isMobilePhone(["en-SG"]),
   body("username").custom(async (value) => {
     return await Owner.find({ username: value }).then((user) => {
       if (user.length) {
@@ -60,10 +60,10 @@ function isAuthenticatedHost(req, res, next) {
 }
 owner.get("/seed", async (req, res) => {
   const owner = {
-    username: "admin",
+    username: "user",
     password: bcrypt.hashSync("12345678", 10),
-    name: "Jaya Lala",
-    email: "jajaja@hotmail.com",
+    name: "Jun Jie",
+    email: "jj@hotmail.com",
     mobile: 96782222,
   };
   try {
@@ -84,7 +84,7 @@ owner.get("/accounts", [isAuthenticatedHost], async (req, res) => {
   }
 });
 
-owner.get("/:id", body("id").isMongoId(), async (req, res) => {
+owner.get("/:id", param("id").isMongoId(), async (req, res) => {
   const { id } = req.params;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

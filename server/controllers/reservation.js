@@ -148,7 +148,7 @@ reservation.get(
 reservation.delete(
   "/remove/:id",
   [isAuthenticatedUser],
-  body("id").isMongoId(),
+  param("id").isMongoId(),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
