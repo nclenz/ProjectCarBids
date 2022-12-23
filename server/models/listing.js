@@ -11,7 +11,7 @@ const listingSchema = new mongoose.Schema(
     price: { type: Number, required: true },
     transmission: { type: String, required: true, enum: ["Manual", "Auto"] },
     fuel: { type: String, required: true, enum: ["Petrol", "Diesel"] },
-    availability: { type: Boolean, required: true },
+    availability: { type: Boolean, required: true, default: true },
     image: { type: String, required: true },
     location: { type: String, required: true },
     reservation: [{ type: mongoose.Schema.Types.ObjectId, ref: "reservation" }],
