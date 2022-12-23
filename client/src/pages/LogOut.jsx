@@ -4,7 +4,7 @@ const LogOut = () => {
   const navigate = useNavigate();
   return (
     <>
-      <p>Successfully Logged Out</p>
+      <h2>Successfully Logged Out</h2>
       <button onClick={() => navigate("/")}>Back to Homepage</button>
     </>
   );

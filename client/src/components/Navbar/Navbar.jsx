@@ -71,8 +71,6 @@ const Navbar = ({ login, setLogin }) => {
               setLogin={setLogin}
               setIsHostModalOpen={setIsHostModalOpen}
             />
-
-            {/* {ownerID && <CreateListing ownerID={ownerID} />} */}
           </Modal>
         </div>
       </nav>
@@ -122,7 +120,9 @@ const Navbar = ({ login, setLogin }) => {
             <FaWhatsapp />
             Contact Us
           </a>
-          <p onClick={handleLogOut}>Log Out</p>
+          <h3 className="nav-item" onClick={handleLogOut}>
+            Log Out
+          </h3>
         </div>
       </nav>
     );

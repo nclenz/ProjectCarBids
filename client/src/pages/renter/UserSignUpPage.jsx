@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import "react-datepicker/dist/react-datepicker.css";
 
 const UserSignUpPage = () => {
   const [username, setUsername] = useState("");

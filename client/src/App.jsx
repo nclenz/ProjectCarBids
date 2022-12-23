@@ -2,7 +2,6 @@ import HomePage from "./pages/HomePage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HostSignUpPage from "./pages/host/HostSignUpPage";
 import ExplorePage from "./pages/renter/ExplorePage";
-import ManageListing from "./pages/host/ManageListing";
 import UserSignUpPage from "./pages/renter/UserSignUpPage";
 import CreateListing from "./pages/host/CreateListing";
 import HostDashboard from "./pages/host/HostDashboard";
@@ -21,8 +20,6 @@ function App() {
   const [owner, setOwner] = useState("");
   const [username, setUsername] = useState("");
 
-  // console.log(login);
-
   return (
     <OwnerContext.Provider value={{ owner, setOwner }}>
       <UserContext.Provider value={{ username, setUsername }}>
@@ -34,7 +31,7 @@ function App() {
               <Route path="/hostsignup" element={<HostSignUpPage />} />
               <Route path="/usersignup" element={<UserSignUpPage />} />
               <Route path="/explore" element={<ExplorePage />} />
-              <Route path="/manage" element={<ManageListing />} />
+
               <Route path="/create" element={<CreateListing />} />
               <Route path="/hostdashboard" element={<HostDashboard />} />
               <Route
