@@ -118,5 +118,162 @@
 .card-subtitle {
   margin: 8px 0 0;
   font-size: 0.875rem;
-  color: rgba(0, 0, 0, 0.54);
+  color: rgba(0, 0, 0, 0.8);
 }
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 16px;
+  align-items: center;
+}
+
+.newCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+.card-bottom {
+  margin-top: -15px;
+  padding: 20px;
+  margin-left: -10px;
+}
+
+h3 {
+  margin: 10px 0;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: start;
+}
+
+p {
+  margin: 10px 0;
+  font-size: 12px;
+  font-weight: 300;
+  text-align: start;
+}
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* .slick-slide > div {
+  margin: 0 10px;
+}
+
+.slick-list {
+  margin: 0 -10px;
+}
+
+.cotainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.homecard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+}
+
+.card-top {
+  width: 100%;
+  background-color: black;
+  padding: 20px;
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.card-top h1 {
+  margin: 10px 0;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.card-top h2 {
+  margin: 10px 0;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.card-bottom h3 {
+  margin: 10px 0;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.card-bottom p {
+  margin: 10px 0;
+  font-size: 12px;
+  font-weight: 300;
+  text-align: center;
+}
+
+.rightChevron {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.rightChevron:hover {
+  opacity: 1;
+} */
+
+/* .container {
+  background: #ccc;
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 50px;
+  display: flex;
+}
+.homecard {
+  border: 1px solid purple;
+  background: black;
+  border-radius: 8px;
+  overflow: scroll;
+  height: 400px;
+  color: red;
+}
+
+.card-top h1 {
+  font-size: 1rem;
+  margin: 10px 20px;
+}
+.card-top {
+  width: 50%;
+  height: 50%;
+  object-fit: cover;
+}
+.card-bottom {
+  margin: 10px 20px;
+} */

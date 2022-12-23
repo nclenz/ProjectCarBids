@@ -127,11 +127,15 @@ const EditPage = () => {
         <br />
 
         <label>Availability:</label>
-        <input
-          type="text"
-          value={availability}
-          onChange={(e) => setAvailability(e.target.value)}
-        />
+        <select
+          id="availability"
+          name="availability"
+          onChange={(event) => setAvailability(event.target.value)}
+          required
+        >
+          <option value="true">Available</option>
+          <option value="false">Not Available</option>
+        </select>
         <br />
 
         <label>Image:</label>
