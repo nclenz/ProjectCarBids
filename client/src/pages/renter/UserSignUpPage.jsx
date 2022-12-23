@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const UserSignUpPage = () => {
@@ -35,7 +34,6 @@ const UserSignUpPage = () => {
       });
 
       if (!response.ok) {
-        // console.log(response.json());
         const promise = response.json();
         promise.then(function (result) {
           console.log(result.errors);
@@ -44,16 +42,16 @@ const UserSignUpPage = () => {
       }
 
       if (response.ok) {
-        // setUsername("");
-        // setName("");
-        // setPassword("");
-        // setConfirmPassword("");
-        // setEmail("");
-        // setMobile("");
-        // setCreditCard("");
-        // setCvc("");
+        setUsername("");
+        setName("");
+        setPassword("");
+        setConfirmPassword("");
+        setEmail("");
+        setMobile("");
+        setCreditCard("");
+        setCvc("");
         setMessage("User created successfully");
-        // navigate("/explore");
+        navigate("/explore");
       }
     } catch (error) {
       setMessage("Catches Error");

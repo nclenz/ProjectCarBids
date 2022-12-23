@@ -4,7 +4,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const HostSignUpPage = () => {
-  const [startDate, setStartDate] = useState(new Date());
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -47,7 +46,7 @@ const HostSignUpPage = () => {
         setEmail("");
         setMobile("");
         setDisplayMessage("User created successfully");
-        // navigate("/hostdashboard");
+        navigate("/hostdashboard");
       }
       // }
     } catch (error) {
