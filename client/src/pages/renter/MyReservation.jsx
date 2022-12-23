@@ -36,12 +36,14 @@ const MyReservation = () => {
                 <h4 className="card-subtitle">{card.listing.model}</h4>
                 <div>Transmission: {card.listing.type}</div>
                 <div>Fuel Type: {card.listing.fuel}</div>
-                {card.listing.availability && (
-                  <div>Availability: {card.listing.availability}</div>
-                )}
-                <div>location: {card.location}</div>
-                <div>Start Date: {card.startdate}</div>
-                <div>End Date: {card.enddate}</div>
+                <div>
+                  Booking Start Date:{" "}
+                  {new Date(card.startdate).toISOString().substring(0, 10)}
+                </div>
+                <div>
+                  Booking End Date:{" "}
+                  {new Date(card.enddate).toISOString().substring(0, 10)}
+                </div>
               </div>
             </div>
           ))}
